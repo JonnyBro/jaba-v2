@@ -9,10 +9,10 @@ module.exports = async (client) => {
 	client.generateInvite({ permissions: ["ADMINISTRATOR"] }).then(link => console.log(`Invite Link: ${link}`));
 	client.user.setPresence({ activity: { name: `${client.prefix}help и ${client.prefix}play`, type: "WATCHING" }, status: "online" });
 
-	const servers = client.guilds.cache.filter(guild => guild.id != 892727526911258654).size;
-	const statuses = [`${client.prefix}help и ${client.prefix}play, WATCHING`, `${servers} сервер(а/ов), WATCHING`];
 	let i = 0;
 	setInterval(() => {
+		const servers = client.guilds.cache.filter(guild => guild.id != 892727526911258654).size;
+		const statuses = [`${client.prefix}help и ${client.prefix}play, WATCHING`, `${servers} сервер(а/ов), WATCHING`];
 		const status = statuses[i].split(', '); // name = [0], type = [1]
 		i = (i + 1) % statuses.length;
 
