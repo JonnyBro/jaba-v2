@@ -1,11 +1,11 @@
 const ytdl = require("ytdl-core-discord");
 const scdl = require("soundcloud-downloader").default;
-const { canModifyQueue, STAY_TIME } = require("../util/Util");
+const { canModifyQueue, STAY_TIME } = require("../util/util");
 const i18n = require("../util/i18n");
 
 module.exports = {
 	async play(song, message) {
-		const { SOUNDCLOUD_CLIENT_ID } = require("../util/Util");
+		const { SOUNDCLOUD_CLIENT_ID } = require("../util/util");
 
 		const queue = message.client.queue.get(message.guild.id);
 

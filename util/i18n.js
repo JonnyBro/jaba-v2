@@ -1,4 +1,4 @@
-const { LOCALE } = require("./Util");
+const { LOCALE } = require("./util");
 const { join } = require("path");
 const i18n = require("i18n");
 

@@ -3,7 +3,7 @@ const ms = require("ms");
 const { version } = require("../../package.json");
 const Discord = require("discord.js");
 const i18n = require("../../util/i18n");
-const { BOTOWNER } = require("../../util/Util");
+const { BOTOWNER } = require("../../util/util");
 
 moment.locale("ru");
 

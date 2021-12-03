@@ -1,5 +1,5 @@
 const { Collection } = require("discord.js");
-const { BOTOWNER } = require("../util/Util");
+const { BOTOWNER } = require("../util/util");
 const i18n = require("../util/i18n");
 const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 

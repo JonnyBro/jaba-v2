@@ -1,4 +1,4 @@
-const { BIRTHDAYCHANNEL } = require("../util/Util");
+const { BIRTHDAYCHANNEL } = require("../util/util");
 const cron = require("node-cron");
 const ServerRepository = require("../repositories/server-repository.js");
 

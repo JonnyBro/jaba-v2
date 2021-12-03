@@ -1,4 +1,4 @@
-const { canModifyQueue } = require("../../util/Util");
+const { canModifyQueue } = require("../../util/util");
 const i18n = require("../../util/i18n");
 
 module.exports = {

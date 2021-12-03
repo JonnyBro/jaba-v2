@@ -1,6 +1,6 @@
 const { Client, Collection, MessageEmbed } = require("discord.js");
 const { readdirSync } = require("fs");
-const { TOKEN, PREFIX } = require("./util/Util");
+const { TOKEN, PREFIX } = require("./util/util");
 
 const path = require("path");
 

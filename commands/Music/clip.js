@@ -1,5 +1,5 @@
 const i18n = require("../../util/i18n");
-const { DEFAULT_VOLUME } = require("../../util/Util");
+const { DEFAULT_VOLUME } = require("../../util/util");
 const fs = require("fs");
 
 module.exports = {

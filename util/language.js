@@ -5,12 +5,12 @@ const guildLanguages = {};
 
 const loadLanguages = async (client) => {
 	try {
-		// console.log("loading!");
 		for (const guild of client.guilds.cache) {
 			const dbServer = await ServerRepository.findOrCreate(guild);
 
 			guildLanguages[guild.id] = dbServer ? dbServer.language : "ru";
 		}
+		console.log("Loaded " + guildLanguages);
 	} catch (e) {
 		console.error(e);
 	};
@@ -24,10 +24,10 @@ const getLocale = async (guild, phrase) => {
 	const selectedLanguage = guildLanguages[guild.id].toLowerCase();
 	// const selectedLanguage = "ru";
 	const args = phrase.split(".");
-	console.log(args)
+	console.log(args);
 
 	if (!lang[selectedLanguage][args[0]][args[1]]) {
-		throw new Error(`Неизвестный ID локализации "${phrase}"`);
+		throw new Error(`Unknown locale ID: ${phrase}`);
 	};
 
 	return lang[selectedLanguage][args[0]][args[1]];

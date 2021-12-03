@@ -22,7 +22,7 @@ const mee6leveling = true;
 const mee6cooldown = 60000;
 
 // Do not touch the things below
-const { DBURL, PREFIX } = require("../util/Util");
+const { DBURL, PREFIX } = require("../util/util");
 require("colors");
 
 module.exports.enabled = enabled;

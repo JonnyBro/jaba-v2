@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { DBURL } = require("./Util");
+const { DBURL } = require("./util");
 
 mongoose.Promise = global.Promise;
 
