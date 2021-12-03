@@ -37,7 +37,6 @@ module.exports = {
 		const scRegex = /^https?:\/\/(soundcloud\.com)\/(.*)$/;
 		const mobileScRegex = /^https?:\/\/(soundcloud\.app\.goo\.gl)\/(.*)$/;
 		const url = args[0];
-		const urlValid = videoPattern.test(args[0]);
 
 		// Start the playlist if playlist url was provided
 		if (!videoPattern.test(args[0]) && playlistPattern.test(args[0])) {
@@ -76,7 +75,7 @@ module.exports = {
 		let songInfo = null;
 		let song = null;
 
-		if (urlValid) {
+		if (videoPattern.test(args[0])) {
 			try {
 				songInfo = await ytdl.getInfo(url);
 				song = {
