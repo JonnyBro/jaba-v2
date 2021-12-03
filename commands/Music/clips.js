@@ -11,6 +11,7 @@ module.exports = {
 	execute(client, message) {
 		fs.readdir("./clips", function(err, files) {
 			if (err) return console.log("Unable to read directory: " + err);
+
 			let clips = [];
 
 			files.forEach(function(file) {

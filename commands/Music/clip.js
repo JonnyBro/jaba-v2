@@ -32,6 +32,8 @@ module.exports = {
 
 		try {
 			queueConstruct.connection = await channel.join();
+			await queueConstruct.connection.voice.setSelfDeaf(true);
+
 			const dispatcher = queueConstruct.connection
 				.play(`./clips/${args[0]}.mp3`)
 				.on("finish", () => {
