@@ -8,7 +8,7 @@ module.exports = {
 	guildOnly: true,
 	async execute(client, message) {
 		if (require("../../include/activities.js").enabled == false) return message.channel.send(i18n.__("discordtogether.disabled"));
-			if (!message.member.voice.channel) return message.channel.send(i18n.__("common.errorNotChannel"));
+			if (!message.member.voice.channel) return message.lineReply(i18n.__("common.errorNotChannel"));
 
 			client.discordTogether.createTogetherCode(message.member.voice.channelID, "wordsnack").then(async invite => {
 				const embed = new MessageEmbed()

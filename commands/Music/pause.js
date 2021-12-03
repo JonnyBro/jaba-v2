@@ -9,7 +9,7 @@ module.exports = {
 	execute(client, message) {
 		const queue = client.queue.get(message.guild.id);
 		if (!queue) return message.lineReply(i18n.__("common.errorNotQueue")).catch(console.error);
-		if (!canModifyQueue(message.member)) return i18n.__("common.errorNotChannel");
+		if (!canModifyQueue(message.member)) return message.lineReply(i18n.__("common.errorNotChannel"));
 
 		if (queue.playing) {
 			queue.playing = false;
@@ -19,6 +19,6 @@ module.exports = {
 			queue.playing = true;
 			queue.connection.dispatcher.resume();
 			return queue.textChannel.send(i18n.__mf("play.resumeSong", { author: message.author })).catch(console.error);
-		}
+		};
 	}
 };

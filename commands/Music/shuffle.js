@@ -10,7 +10,7 @@ module.exports = {
 	execute(client, message) {
 		const queue = client.queue.get(message.guild.id);
 		if (!queue) return message.channel.send(i18n.__("common.errorNotQueue")).catch(console.error);
-		if (!canModifyQueue(message.member)) return message.channel.send(i18n.__("common.errorNotChannel"));
+		if (!canModifyQueue(message.member)) return message.lineReply(i18n.__("common.errorNotChannel"));
 
 		let songs = queue.songs;
 		if (!songs) return queue.textChannel.send(i18n.__("common.errorNotQueue"));
