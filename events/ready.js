@@ -12,7 +12,11 @@ module.exports = async (client) => {
 	let i = 0;
 	setInterval(() => {
 		const servers = client.guilds.cache.filter(guild => guild.id != 892727526911258654).size;
-		const statuses = [`${client.prefix}help и ${client.prefix}play, WATCHING`, `${servers} сервер(а/ов), WATCHING`];
+
+		const statuses = [
+			`${client.prefix}help и ${client.prefix}play, WATCHING`,
+			`${servers} сервер(а/ов), WATCHING`
+		];
 		const status = statuses[i].split(', '); // name = [0], type = [1]
 		i = (i + 1) % statuses.length;
 
@@ -31,21 +35,19 @@ module.exports = async (client) => {
 			guild.channels.cache.forEach(channel => {
 				if (channel.name.includes(BIRTHDAYCHANNEL)) {
 					flag = true;
-					birthdayChannel = channel
+					birthdayChannel = channel;
 				};
 			});
 
-			if (!flag) {
-				birthdayChannel = await guild.channels.create(BIRTHDAYCHANNEL, "text/voice");
-			};
+			if (!flag) birthdayChannel = await guild.channels.create(BIRTHDAYCHANNEL, "text/voice");
 
 			dbServer.members.forEach(member => {
-				const month = member.birthday.getUTCMonth()+1;
+				const month = member.birthday.getUTCMonth() + 1;
 				const day = member.birthday.getUTCDate();
 				if (month === currentMonth && day === currentDay) {
 					birthdayChannel.send(`||@everyone|| Сегодня день рождения <@${member.discord_id}>!`, {
 						files: ["./birthday.png"]
-					})
+					});
 				};
 			});
 		});

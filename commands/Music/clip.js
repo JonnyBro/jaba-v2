@@ -1,6 +1,6 @@
 const i18n = require("../../util/i18n");
 const { DEFAULT_VOLUME } = require("../../util/util");
-const fs = require("fs");
+const { existsSync } = require("fs");
 
 module.exports = {
 	name: "clip",
@@ -13,7 +13,7 @@ module.exports = {
 		const queue = client.queue.get(message.guild.id);
 
 		if (!args.length) return message.lineReply(i18n.__("clip.usagesReply")).catch(console.error);
-		if (!fs.existsSync(`./clips/${args[0]}.mp3`)) return message.lineReply(i18n.__("clip.noFile")).catch(console.error);
+		if (!existsSync(`./clips/${args[0]}.mp3`)) return message.lineReply(i18n.__("clip.noFile")).catch(console.error);
 		if (queue) return message.lineReply(i18n.__("clip.errorQueue"));
 		if (!channel) return message.lineReply(i18n.__("common.errorNotChannel")).catch(console.error);
 

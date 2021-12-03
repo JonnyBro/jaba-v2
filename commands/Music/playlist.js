@@ -2,7 +2,6 @@ const { MessageEmbed } = require("discord.js");
 const { play } = require("../../include/play");
 const YouTubeAPI = require("simple-youtube-api");
 const scdl = require("soundcloud-downloader").default;
-
 const { YOUTUBE_API_KEY, SOUNDCLOUD_CLIENT_ID, MAX_PLAYLIST_SIZE, DEFAULT_VOLUME } = require("../../util/util");
 const youtube = new YouTubeAPI(YOUTUBE_API_KEY);
 const i18n = require("../../util/i18n");
@@ -18,18 +17,14 @@ module.exports = {
 		const { channel } = message.member.voice;
 		const serverQueue = client.queue.get(message.guild.id);
 
-		if (!args.length)
-			return message.lineReply(i18n.__mf("playlist.usageReply", { prefix: client.prefix }))
-				.catch(console.error);
+		if (!args.length) return message.lineReply(i18n.__mf("playlist.usageReply", { prefix: client.prefix })).catch(console.error);
 		if (!channel) return message.lineReply(i18n.__("common.errorNotChannel")).catch(console.error);
 
 		const permissions = channel.permissionsFor(client.user);
 		if (!permissions.has("CONNECT")) return message.lineReply(i18n.__("playlist.missingPermissionConnect"));
 		if (!permissions.has("SPEAK")) return message.lineReply(i18n.__("missingPermissionSpeak"));
 
-		if (serverQueue && channel !== message.guild.me.voice.channel)
-			return message.lineReply(i18n.__mf("play.errorNotInSameChannel", { user: client.user }))
-				.catch(console.error);
+		if (serverQueue && channel !== message.guild.me.voice.channel) return message.lineReply(i18n.__mf("play.errorNotInSameChannel", { user: client.user })).catch(console.error);
 
 		const search = args.join(" ");
 		const pattern = /^.*(youtu.be\/|list=)([^#\&\?]*).*/gi;
@@ -97,9 +92,7 @@ module.exports = {
 			.setColor("#F8AA2A")
 			.setTimestamp();
 
-		if (playlistEmbed.description.length >= 2048)
-			playlistEmbed.description =
-				playlistEmbed.description.substr(0, 2007) + i18n.__("playlist.playlistCharLimit");
+		if (playlistEmbed.description.length >= 2048) playlistEmbed.description = playlistEmbed.description.substr(0, 2007) + i18n.__("playlist.playlistCharLimit");
 
 		message.channel.send(i18n.__mf("playlist.startedPlaylist", { author: message.author }), playlistEmbed);
 

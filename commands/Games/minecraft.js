@@ -20,8 +20,8 @@ module.exports = {
 				.setDescription(i18n.__("minecraft.categories"))
 				.setFooter(i18n.__mf("common.executedBy", { name: message.author.username }), message.author.avatarURL())
 				.setTimestamp()
-			message.lineReply(embed);
-		}
+			return message.lineReply(embed);
+		};
 
 		if (args[0] === "user") {
 			if (!args[1]) return message.lineReply(i18n.__("minecraft.noArg"));
@@ -68,6 +68,6 @@ module.exports = {
 
 				return message.channel.send(embed);
 			});
-		}
+		};
 	}
 }

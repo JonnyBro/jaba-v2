@@ -10,8 +10,7 @@ module.exports = {
 	guildOnly: true,
 	async execute(client, message) {
 		const permissions = message.channel.permissionsFor(client.user);
-		if (!permissions.has(["MANAGE_MESSAGES"]))
-			return message.lineReply(i18n.__("queue.missingPermissionMessage"));
+		if (!permissions.has(["MANAGE_MESSAGES"])) return message.lineReply(i18n.__("queue.missingPermissionMessage"));
 
 		const queue = client.queue.get(message.guild.id);
 		if (!queue) return message.channel.send(i18n.__("common.errorNotQueue"));
@@ -35,7 +34,7 @@ module.exports = {
 				buttons: [ left, right ]
 			});
 
-			message.client.once("clickButton", async (button) => {
+			message.client.on("clickButton", async (button) => {
 				switch (button.id) {
 					case "left_button":
 						if (currentPage !== 0) {
@@ -56,12 +55,12 @@ module.exports = {
 							});
 						}
 					break;
-				}
+				};
 			});
 		} catch (error) {
 			console.error(error);
 			message.channel.send(error.message).catch(console.error);
-		}
+		};
 	}
 };
 
@@ -80,12 +79,10 @@ function generateQueueEmbed(message, queue) {
 			.setTitle(i18n.__("queue.embedTitle"))
 			.setThumbnail(message.guild.iconURL())
 			.setColor("#F8AA2A")
-			.setDescription(
-				i18n.__mf("queue.embedCurrentSong", { title: queue[0].title, url: queue[0].url, info: info })
-			)
+			.setDescription(i18n.__mf("queue.embedCurrentSong", { title: queue[0].title, url: queue[0].url, info: info }))
 			.setTimestamp();
 		embeds.push(embed);
-	}
+	};
 
 	return embeds;
-}
+};

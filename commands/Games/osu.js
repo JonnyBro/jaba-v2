@@ -3,7 +3,7 @@ const { MessageEmbed } = require("discord.js");
 const moment = require("moment");
 const i18n = require("../../util/i18n");
 
-moment.locale("ru")
+moment.locale("ru");
 
 module.exports = {
 	name: "osu",
@@ -20,9 +20,7 @@ module.exports = {
 				type: "string"
 			});
 
-			if (!body.length) {
-				message.lineReply(i18n.__("osu.noUser"))
-			};
+			if (!body.length) return message.lineReply(i18n.__("osu.noUser"));
 
 			const data = body[0];
 

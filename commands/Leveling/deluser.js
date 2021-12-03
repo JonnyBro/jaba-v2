@@ -15,5 +15,5 @@ module.exports = {
 
 		Levels.deleteUser(message.mentions.members.first().id, message.guild.id);
 		message.channel.send(i18n.__mf("leveling.deleted", {name: message.mentions.members.first()}));
-	},
+	}
 };

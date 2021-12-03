@@ -22,7 +22,7 @@ const mee6leveling = true;
 const mee6cooldown = 60000;
 
 // Do not touch the things below
-const { DBURL, PREFIX } = require("../util/util");
+const { DBURL } = require("../util/util");
 require("colors");
 
 module.exports.enabled = enabled;
@@ -39,12 +39,13 @@ const client = require("../index.js").client;
 client.on("message", async (message) => {
 	if (!message.guild) return;
 	if (message.author.bot) return;
-	if (message.content.startsWith(PREFIX)) return;
+	if (message.content.startsWith(client.prefix)) return;
 
 	if (mee6leveling && !message.member.cooldown) {
 		message.member.cooldown = true;
 		const randomAmountOfXp = Math.floor(Math.random() * (maxxp - minxp) + minxp);
 		const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
+
 		if (hasLeveledUp) {
 			return;
 			/*
@@ -56,21 +57,23 @@ client.on("message", async (message) => {
 			}
 			*/
 		}
+
 		setTimeout(function() {
 			message.member.cooldown = false;
-		}, mee6cooldown)
+		}, mee6cooldown);
 	} else if (!mee6leveling) {
 		const randomAmountOfXp = Math.floor(Math.random() * (maxxp - minxp) + minxp);
 		const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp);
+
 		if (hasLeveledUp) {
 			const user = await Levels.fetch(message.author.id, message.guild.id);
 			if (messagewhen) {
 				if (!sendtochannel) return message.channel.send(theactualmessage.replace("(TAG)", message.author.tag).replace("(LEVEL)", user.level));
 				const channel = client.channels.cache.get(channelid);
 				channel.send(theactualmessage.replace("(TAG)", message.author.tag).replace("(LEVEL)", user.level));
-			}
-		}
+			};
+		};
 	} else if (mee6leveling && message.member.cooldown) {
 		return;
-	}
+	};
 });

@@ -1,5 +1,5 @@
 const paginationEmbed = require("discord.js-pagination-fork");
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const i18n = require("../../util/i18n");
 
 module.exports = {
@@ -10,17 +10,12 @@ module.exports = {
 		const data = [];
 		const { commands } = client;
 
-		if (!args.length) {
-			paginationEmbed(message, client.helpPages);
-			return;
-		}
+		if (!args.length) return paginationEmbed(message, client.helpPages);
 
 		const name = args[0].toLowerCase();
 		const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
-		if (!command) {
-			return message.channel.send(i18n.__("common.noCommandExists"));
-		}
+		if (!command) return message.channel.send(i18n.__("common.noCommandExists"));
 
 		data.push(`**${command.emoji || ":package:"} ${command.name}**`);
 		if (command.aliases) data.push(`**${i18n.__("help.aliases")}:** ${command.aliases.join(", ")}`);
@@ -29,11 +24,11 @@ module.exports = {
 
 		data.push(`**${i18n.__("help.cooldown")}:** ${command.cooldown || 3} сек`);
 
-		const comembed = new Discord.MessageEmbed()
+		const comembed = new MessageEmbed()
 			.setColor("RANDOM")
 			.setTimestamp()
 			.setFooter(i18n.__mf("common.executedBy", { name: message.author.username }), message.author.avatarURL())
 			.setDescription(data.join("\n"))
 		return message.channel.send(comembed);
-	},
+	}
 };

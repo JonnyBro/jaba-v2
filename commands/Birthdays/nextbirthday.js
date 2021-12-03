@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const ServerRepository = require("../../repositories/server-repository");
 const moment = require("moment");
 const i18n = require("../../util/i18n");
@@ -18,14 +18,12 @@ module.exports = {
 
 		let offsets = [...birthdays];
 
-		if (!birthdays) {
-			return message.channel.send(i18n.__("birthdays.noBirthdays"));
-		}
+		if (!birthdays) return message.channel.send(i18n.__("birthdays.noBirthdays"));
 
 		let birthdayEntry = find(offsets);
 		let birthday = formatUser(birthdays[birthdayEntry]);
 
-		const embed = new Discord.MessageEmbed()
+		const embed = new MessageEmbed()
 			.setTitle(i18n.__("birthdays.nextBirthday"))
 			.setDescription(birthday)
 			.setColor("RANDOM")

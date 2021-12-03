@@ -6,7 +6,6 @@ const i18n = require("../util/i18n");
 module.exports = {
 	async play(song, message) {
 		const { SOUNDCLOUD_CLIENT_ID } = require("../util/util");
-
 		const queue = message.client.queue.get(message.guild.id);
 
 		if (!song) {
@@ -15,9 +14,10 @@ module.exports = {
 				queue.channel.leave();
 				queue.textChannel.send(i18n.__("play.leaveChannel"));
 			}, STAY_TIME * 1000);
+
 			queue.textChannel.send(i18n.__("play.queueEnded")).catch(console.error);
 			return message.client.queue.delete(message.guild.id);
-		}
+		};
 
 		let stream = null;
 		let streamType = song.url.includes("youtube.com") ? "opus" : "ogg/opus";
@@ -31,19 +31,17 @@ module.exports = {
 				} catch (error) {
 					stream = await scdl.downloadFormat(song.url, scdl.FORMATS.MP3, SOUNDCLOUD_CLIENT_ID);
 					streamType = "unknown";
-				}
-			}
+				};
+			};
 		} catch (error) {
 			if (queue) {
 				queue.songs.shift();
 				module.exports.play(queue.songs[0], message);
-			}
+			};
 
 			console.error(error);
-			return message.channel.send(
-				i18n.__mf("play.queueError", { error: error.message ? error.message : error })
-			);
-		}
+			return message.channel.send(i18n.__mf("play.queueError", { error: error.message ? error.message : error }));
+		};
 
 		queue.connection.on("disconnect", () => message.client.queue.delete(message.guild.id));
 
@@ -63,7 +61,7 @@ module.exports = {
 					// Recursively play the next song
 					queue.songs.shift();
 					module.exports.play(queue.songs[0], message);
-				}
+				};
 			})
 			.on("error", (err) => {
 				console.error(err);
@@ -94,13 +92,7 @@ module.exports = {
 				.setLabel(i18n.__("buttons.stop_button"))
 				.setID("stop_button")
 
-			var buttons = [skip, loop, loopSong, stop];
-
-			await queue.textChannel.send(
-				i18n.__mf("play.startedPlaying", { title: song.title, url: song.url }), {
-					buttons: buttons
-				}
-			);
+			await queue.textChannel.send(i18n.__mf("play.startedPlaying", { title: song.title, url: song.url }), { buttons: [ skip, loop, loopSong, stop ] });
 
 			message.client.once("clickButton", async (button) => {
 				const member = button.clicker.member;
@@ -149,10 +141,10 @@ module.exports = {
 							};
 						}, 2000);
 					break;
-				}
+				};
 			});
 		} catch (error) {
 			console.error(error);
-		}
+		};
 	}
 };

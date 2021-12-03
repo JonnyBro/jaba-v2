@@ -1,5 +1,5 @@
 const canvacord = require("canvacord");
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const i18n = require("../../util/i18n");
 
 module.exports = {
@@ -10,7 +10,8 @@ module.exports = {
 			const user = message.mentions.users.first() || message.author;
 			const avatar = user.displayAvatarURL({ dynamic: true, format: "png", size: 1024 });
 			const image = await canvacord.Canvas.trigger(avatar);
-			const embed = new Discord.MessageEmbed()
+
+			const embed = new MessageEmbed()
 				.attachFiles({ attachment: image, name: "triggered.gif" })
 				.setImage("attachment://triggered.gif")
 				.setColor("RANDOM")

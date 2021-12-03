@@ -9,9 +9,7 @@ module.exports = {
 		if (!args || args.length < 1) return message.lineReply(i18n.__("reload.noCommand"));
 
 		const commandName = args[0];
-		if (!client.commands.has(commandName)) {
-			return message.lineReply(i18n.__("common.noCommandExists"));
-		}
+		if (!client.commands.has(commandName)) return message.lineReply(i18n.__("common.noCommandExists"));
 
 		const commandsFolders = readdirSync("./commands");
 
@@ -29,9 +27,9 @@ module.exports = {
 					client.commands.set(command.name, command);
 
 					message.lineReply(i18n.__mf("reload.reloaded", { command: commandName }));
-					console.log(`Command ${commandName} reloaded!`)
-				}
-			}
-		}
-	},
+					console.log(`Command ${commandName} reloaded!`);
+				};
+			};
+		};
+	}
 };

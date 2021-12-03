@@ -17,24 +17,18 @@ module.exports = async (client, message) => {
 
 	if (!command) return;
 
-	if (command.guildOnly && message.channel.type === "dm") {
-		return message.lineReply(i18n.__("common.guildOnly"));
-	};
+	if (command.guildOnly && message.channel.type === "dm") return message.lineReply(i18n.__("common.guildOnly"));
 
-	if (command.ownerOnly && message.author.id != BOTOWNER) {
-		return message.lineReply(i18n.__("common.ownerOnly"));
-	}
+	if (command.ownerOnly && message.author.id != BOTOWNER) return message.lineReply(i18n.__("common.ownerOnly"));
 
 	if (command.permissions) {
 		const authorPerms = message.channel.permissionsFor(message.author);
 		if (!authorPerms || !authorPerms.has(command.permissions)) {
 			return message.lineReply(i18n.__("common.noPermissions"));
-		}
+		};
 	};
 
-	if (!client.cooldowns.has(command.name)) {
-		client.cooldowns.set(command.name, new Collection());
-	};
+	if (!client.cooldowns.has(command.name)) client.cooldowns.set(command.name, new Collection());
 
 	const now = Date.now();
 	const timestamps = client.cooldowns.get(command.name);
@@ -45,9 +39,7 @@ module.exports = async (client, message) => {
 
 		if (now < expirationTime) {
 			const timeLeft = (expirationTime - now) / 1000;
-			return message.lineReply(
-				i18n.__mf("common.cooldownMessage", { time: timeLeft.toFixed(1), name: command.name })
-			);
+			return message.lineReply(i18n.__mf("common.cooldownMessage", { time: timeLeft.toFixed(1), name: command.name }));
 		};
 	};
 

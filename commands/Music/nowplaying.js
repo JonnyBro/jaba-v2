@@ -25,7 +25,7 @@ module.exports = {
 
 		if (song.duration > 0) {
 			nowPlaying.addField(
-				"\u200b",
+				"\n",
 				new Date(seek * 1000).toISOString().substr(11, 8) +
 					"[" +
 					splitBar(song.duration == 0 ? seek : song.duration, seek, 20)[0] +
@@ -33,9 +33,7 @@ module.exports = {
 					(song.duration == 0 ? i18n.__(nowplaying.live) : new Date(song.duration * 1000).toISOString().substr(11, 8)),
 				false
 			);
-			nowPlaying.setFooter(
-				i18n.__mf("nowplaying.timeRemaining", { time: new Date(left * 1000).toISOString().substr(11, 8) })
-			);
+			nowPlaying.setFooter(i18n.__mf("nowplaying.timeRemaining", { time: new Date(left * 1000).toISOString().substr(11, 8) }));
 		}
 
 		return message.channel.send(nowPlaying);

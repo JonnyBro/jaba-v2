@@ -10,12 +10,9 @@ module.exports = {
 	emoji: ":musical_note:",
 	guildOnly: true,
 	async execute(client, message, args) {
-		if (!args.length)
-			return message.lineReply(i18n.__mf("search.usageReply", { prefix: client.prefix, name: module.exports.name }))
-				.catch(console.error);
+		if (!args.length) return message.lineReply(i18n.__mf("search.usageReply", { prefix: client.prefix, name: module.exports.name })).catch(console.error);
 		if (message.channel.activeCollector) return message.lineReply(i18n.__("search.errorAlreadyCollector"));
-		if (!message.member.voice.channel)
-			return message.lineReply(i18n.__("common.errorNotChannel")).catch(console.error);
+		if (!message.member.voice.channel) return message.lineReply(i18n.__("common.errorNotChannel")).catch(console.error);
 
 		const search = args.join(" ");
 

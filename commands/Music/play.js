@@ -19,13 +19,9 @@ module.exports = {
 
 		const serverQueue = client.queue.get(message.guild.id);
 		if (!channel) return message.lineReply(i18n.__("common.errorNotChannel")).catch(console.error);
-		if (serverQueue && channel !== message.guild.me.voice.channel)
-			return message.lineReply(i18n.__mf("play.errorNotInSameChannel", { user: client.user }))
-				.catch(console.error);
+		if (serverQueue && channel !== message.guild.me.voice.channel) return message.lineReply(i18n.__mf("play.errorNotInSameChannel", { user: client.user })).catch(console.error);
 
-		if (!args.length)
-			return message.lineReply(i18n.__mf("play.usageReply", { prefix: client.prefix }))
-				.catch(console.error);
+		if (!args.length) return message.lineReply(i18n.__mf("play.usageReply", { prefix: client.prefix })).catch(console.error);
 
 		const permissions = channel.permissionsFor(client.user);
 		if (!permissions.has("CONNECT")) return message.lineReply(i18n.__("play.missingPermissionConnect"));
@@ -38,7 +34,7 @@ module.exports = {
 		const mobileScRegex = /^https?:\/\/(soundcloud\.app\.goo\.gl)\/(.*)$/;
 		const url = args[0];
 
-		// Start the playlist if playlist url was provided
+		// Запуск команды на плейлист если дана ссылка на плейлист
 		if (!videoPattern.test(args[0]) && playlistPattern.test(args[0])) {
 			return client.commands.get("playlist").execute(message, args);
 		} else if (scdl.isValidUrl(url) && url.includes("/sets/")) {
@@ -120,9 +116,7 @@ module.exports = {
 
 		if (serverQueue) {
 			serverQueue.songs.push(song);
-			return serverQueue.textChannel
-				.send(i18n.__mf("play.queueAdded", { title: song.title, author: message.author }))
-				.catch(console.error);
+			return serverQueue.textChannel.send(i18n.__mf("play.queueAdded", { title: song.title, author: message.author })).catch(console.error);
 		}
 
 		queueConstruct.songs.push(song);

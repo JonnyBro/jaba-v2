@@ -1,9 +1,9 @@
+const { MessageEmbed } = require("discord.js");
+const { version } = require("../../package.json");
+const { BOTOWNER } = require("../../util/util");
 const moment = require("moment");
 const ms = require("ms");
-const { version } = require("../../package.json");
-const Discord = require("discord.js");
 const i18n = require("../../util/i18n");
-const { BOTOWNER } = require("../../util/util");
 
 moment.locale("ru");
 
@@ -14,72 +14,16 @@ module.exports = {
 	guildOnly: true,
 	async execute(client, message) {
 		let uptime = client.uptime;
-		let cd = 24 * 60 * 60 * 1000;
-		let ch = 60 * 60 * 1000;
-		let cm = 60 * 1000;
-		let cs = 1000;
-		let days = Math.floor(uptime / cd);
-		let dms = days * cd;
-		let hours = Math.floor((uptime - dms) / ch);
-		let hms = hours * ch;
-		let minutes = Math.floor((uptime - dms - hms) / cm);
-		let mms = minutes * cm;
-		let seconds = Math.round((uptime - dms - hms - mms) / cs);
+		let seconds = Math.floor(uptime / 1000);
+		let minutes = Math.floor(seconds / 60);
+		let hours = Math.floor(minutes / 60);
+		let days = Math.floor(hours / 24);
 
-		if (seconds == 60) {
-			minutes++
-			seconds = 0
-		};
+		seconds %= 60;
+		minutes %= 60;
+		hours %= 24;
 
-		if (minutes == 60) {
-			hours++;
-			minutes = 0
-		};
-
-		if (hours == 24) {
-			days++;
-			hours = 0
-		};
-
-		let dateStrings = []
-		if (days == 1) {
-			dateStrings.push("**1** день")
-		} else if (days > 1) {
-			dateStrings.push("**" + String(days) + "** дней(я)")
-		};
-
-		if (hours == 1) {
-			dateStrings.push("**1** час")
-		} else if (hours > 1) {
-			dateStrings.push("**" + String(hours) + "** часов(а,ов)")
-		};
-
-		if (minutes == 1) {
-			dateStrings.push("**1** минута")
-		} else if (minutes > 1) {
-			dateStrings.push("**" + String(minutes) + "** минут(ы,а)")
-		};
-
-		if (seconds == 1) {
-			dateStrings.push("**1** секунда")
-		} else if (seconds > 1) {
-			dateStrings.push("**" + String(seconds) + "** секунд(ы,a)")
-		};
-
-		let dateString = "";
-		for (var i = 0; i < dateStrings.length - 1; i++) {
-			dateString += dateStrings[i];
-			dateString += ", ";
-		};
-
-		if (dateStrings.length >= 2) {
-			dateString = dateString.slice(0, dateString.length - 2) + dateString.slice(dateString.length - 1);
-			dateString += "и ";
-		};
-
-		dateString += dateStrings[dateStrings.length - 1]
-
-		const embed = new Discord.MessageEmbed()
+		const embed = new MessageEmbed()
 			.setAuthor(`Информация о боте`)
 			.setThumbnail(client.user.avatarURL() || client.user.displayavatarURL())
 			.setColor(0x00ff11)
@@ -95,9 +39,9 @@ module.exports = {
 			.addField("Версия бота", `Версия от ${version}`, true)
 			.addField("Версия Node.js", process.version, true)
 			.addField("Пинг", `${Math.round(client.ws.ping)} ms`)
-			.addField("Время работы", dateString)
+			.addField("Время работы", `${days} день(дня/дней), ${hours} ч, ${minutes} м, ${seconds} сек`)
 
 			.setTimestamp()
 		message.channel.send(embed);
 	}
-}
+};

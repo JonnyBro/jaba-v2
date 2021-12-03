@@ -15,5 +15,5 @@ module.exports = {
 
 		Levels.setLevel(message.mentions.members.first().id, message.guild.id, args[1]);
 		message.channel.send(i18n.__mf("leveling.newlevel", {name: message.mentions.members.first(), value: args[1]}));
-	},
+	}
 };

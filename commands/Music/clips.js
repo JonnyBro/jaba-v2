@@ -1,5 +1,6 @@
+const { MessageEmbed } = require("discord.js");
 const i18n = require("../../util/i18n");
-const fs = require("fs");
+const { readdir } = require("fs");
 
 module.exports = {
 	name: "clips",
@@ -9,7 +10,7 @@ module.exports = {
 	emoji: ":musical_note:",
 	guildOnly: true,
 	execute(client, message) {
-		fs.readdir("./clips", function(err, files) {
+		readdir("./clips", function(err, files) {
 			if (err) return console.log("Unable to read directory: " + err);
 
 			let clips = [];
@@ -18,7 +19,13 @@ module.exports = {
 				clips.push(file.substring(0, file.length - 4));
 			});
 
-			message.lineReply(`**Список клипов:**\n${clips.join(", ")}`).catch(console.error);
+			const embed = new MessageEmbed()
+				.setTitle("**Список клипов:**")
+				.setDescription(clips.join("\n"))
+				.setColor("RANDOM")
+				.setFooter(i18n.__mf("common.executedBy", { name: message.author.username }), message.author.avatarURL())
+				.setTimestamp()
+			message.channel.send(embed);
 		});
 	}
 };

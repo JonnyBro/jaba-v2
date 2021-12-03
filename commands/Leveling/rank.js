@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const canvacord = require("canvacord");
 const { Levels, enabled } = require("../../include/leveling.js");
 const i18n = require("../../util/i18n");
@@ -29,11 +29,11 @@ module.exports = {
 			.renderEmojis(true)
 			.setDiscriminator(target.discriminator);
 		rank.build().then(data => {
-			const embed = new Discord.MessageEmbed()
+			const embed = new MessageEmbed()
 				.attachFiles({ attachment: data, name: "attachment://rankcard.png" })
 				.setImage("attachment://rankcard.png")
 				.setColor("RANDOM")
 			message.channel.send(embed);
 		});
-	},
+	}
 };

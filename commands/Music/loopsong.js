@@ -14,8 +14,6 @@ module.exports = {
 
 		queue.loop = false;
 		queue.loopSong = !queue.loopSong;
-		return queue.textChannel
-			.send(i18n.__mf("loop.result", { loop: queue.loop ? i18n.__("common.on") : i18n.__("common.off") }))
-			.catch(console.error);
+		return queue.textChannel.send(i18n.__mf("loop.result", { loop: queue.loop ? i18n.__("common.on") : i18n.__("common.off") })).catch(console.error);
 	}
 };

@@ -11,14 +11,11 @@ module.exports = {
 	guildOnly: true,
 	async execute(client, message, args) {
 		let item = "";
-
 		for (let i = 0; i < args.length; i++) {
 			item += args[i] + " ";
 		};
 
-		if (args === undefined || args.length != 3) {
-			return message.lineReply(i18n.__("birthdays.wrongFormat"));
-		};
+		if (args === undefined || args.length != 3) return message.lineReply(i18n.__("birthdays.wrongFormat"));
 
 		let dateString = args[1] + " " + args[0] + " " + args[2];
 		let date = new Date(dateString);
@@ -41,9 +38,11 @@ module.exports = {
 				birthday: date,
 				discord_id: message.author.id
 			});
+
 			dbServer.members.push(newBirthday);
 			dbServer.markModified("members");
 			await dbServer.save();
+
 			message.channel.send(i18n.__mf("birthdays.birthdayCreated", { date: formattedDate }));
 		}
 	},

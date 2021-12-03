@@ -14,9 +14,11 @@ module.exports = {
 		if (queue.playing) {
 			queue.playing = false;
 			queue.connection.dispatcher.pause(true);
-			return queue.textChannel
-				.send(i18n.__mf("pause.result", { author: message.author }))
-				.catch(console.error);
+			return queue.textChannel.send(i18n.__mf("play.pauseSong", { author: message.author })).catch(console.error);
+		} else if (!queue.playing) {
+			queue.playing = true;
+			queue.connection.dispatcher.resume();
+			return queue.textChannel.send(i18n.__mf("play.resumeSong", { author: message.author })).catch(console.error);
 		}
 	}
 };

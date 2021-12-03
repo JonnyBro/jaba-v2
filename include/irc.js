@@ -52,13 +52,13 @@ if (enabled == true) {
 	discordclient.on(message, async (message) => {
 		if (message.channel.id !== discordchannel || message.author.bot) return;
 		ircclient.say(ircchannel, discordmsgformat.replace("(TAG)", message.author.tag).replace("(MESSAGE)", message.content));
-	})
+	});
 
 	process.on("SIGTERM", () => {
 		client.part(ircchannel);
 		console.log("[STATUS]".green + ` Left channel ${ircchannel}`);
-	})
+	});
 
 } else {
 	console.log("[INFO]".blue + " IRC module is " + "DISABLED".red);
-}
+};

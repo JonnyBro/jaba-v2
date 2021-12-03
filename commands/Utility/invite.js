@@ -4,6 +4,6 @@ module.exports = {
 	name: "invite",
 	description: i18n.__("invite.description"),
 	execute(client, message) {
-		client.generateInvite({ permissions: ["ADMINISTRATOR"] }).then(link => message.lineReply(`${link}`));
+		client.generateInvite({ permissions: ["ADMINISTRATOR"] }).then(link => message.lineReply(link));
 	}
 };
