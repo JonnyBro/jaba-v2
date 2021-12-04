@@ -5,7 +5,8 @@ const ServerRepository = require("../repositories/server-repository.js");
 module.exports = async (client) => {
 	await client.mongoose.init();
 
-	console.log(`\n${client.user.username} ready!`);
+	console.log(`\nLoaded a total of ${client.commands.size} command(s)`)
+	console.log(`${client.user.tag}, ready to serve ${client.users.cache.size} users in ${client.guilds.cache.size} servers`);
 	client.generateInvite({ permissions: ["ADMINISTRATOR"] }).then(link => console.log(`Invite Link: ${link}`));
 	client.user.setPresence({ activity: { name: `${client.prefix}help и ${client.prefix}play`, type: "WATCHING" }, status: "online" });
 
@@ -21,7 +22,7 @@ module.exports = async (client) => {
 		i = (i + 1) % statuses.length;
 
 		client.user.setPresence({ activity: { name: status[0], type: status[1] }, status: "online" });
-	}, 60000); // 1 * 60 * 1000 (m, s, ms)
+	}, 30000); // 1 * 30 * 1000 (m, s, ms)
 
 	cron.schedule("0 10 * * *", () => {
 		const date = new Date();
