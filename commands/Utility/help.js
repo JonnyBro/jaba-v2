@@ -1,38 +1,17 @@
-const { readdirSync } = require("fs");
+const paginationEmbed = require("discord.js-pagination-fork");
 const { MessageEmbed } = require("discord.js");
-const path = require("path");
 const i18n = require("../../util/i18n");
 
 module.exports = {
 	name: "help",
-	aliases: ["h"],
 	description: i18n.__("help.description"),
 	usage: "[опционально (команда)]",
 	async execute(client, message, args) {
-		if (!args.length) {
-			const commandFoldersForHelp = readdirSync("./commands");
-			for (const folder of commandFoldersForHelp) {
-				const data = [];
-				let embed = new MessageEmbed()
-					.setTitle("Список команд")
-					.setColor("RANDOM")
-
-				data.push(`**${path.basename(folder)}**`);
-				const commandFiles = readdirSync(`./commands/${folder}`);
-
-				for (const file of commandFiles) {
-					const command = require(`./commands/${folder}/${file}`);
-					data.push(`**${command.emoji || ":package:"}** ${command.name} ${command.aliases ? `(${command.aliases.join(", ")})` : "" } - ${command.description}`);
-				};
-
-				embed.setDescription(data);
-			};
-
-			return message.lineReply(embed);
-		};
-
 		const data = [];
 		const { commands } = client;
+
+		if (!args.length) return paginationEmbed(message, client.helpPages);
+
 		const name = args[0].toLowerCase();
 		const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
