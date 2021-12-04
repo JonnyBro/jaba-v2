@@ -34,15 +34,6 @@ client.on("warn", (warn) => console.log(warn));
 client.on("error", console.error);
 
 /*
- * Modules Handler
- */
-const modules = fs.readdirSync("./modules").filter(file => file.endsWith(".js"));
-for (const file of modules) {
-	const module = require(`./modules/${file}`);
-	console.log("[INIT]".gray + ` ${module.name} - module loaded`);
-};
-
-/*
  * Events Handler
  */
 const eventFiles = readdirSync("./events").filter(file => file.endsWith(".js"));
@@ -55,6 +46,15 @@ for (const file of eventFiles) {
 	} catch(error) {
 		console.error(error);
 	};
+};
+
+/*
+ * Modules Handler
+ */
+const modules = readdirSync("./modules").filter(file => file.endsWith(".js"));
+for (const file of modules) {
+	const module = require(`./modules/${file}`);
+	console.log("[INIT]".gray + ` ${module.name} - module loaded`);
 };
 
 /**

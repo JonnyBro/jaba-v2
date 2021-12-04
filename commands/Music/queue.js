@@ -1,28 +1,29 @@
 const { MessageEmbed } = require("discord.js");
 const { enabled } = require("../../modules/music_system");
+const i18n = require("../../util/i18n");
 
 module.exports = {
 	name: "queue",
+	description: i18n.__("queue.description"),
 	aliases: ["q"],
-	description: "Displays the queue.",
 	guildOnly: true,
 	emoji: ":notepad_spiral:",
 	async execute(client, message, args) {
-		if (!enabled) return message.channel.send(require("../../messages.json").music_disabled);
-		if (!message.member.voice.channel) return message.channel.send(require("../../messages.json").music_notconnected);
-		if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(require("../../messages.json").music_notsamevc);
-		if (!client.player.getQueue(message)) return message.channel.send(require("../../messages.json").music_queueempty);
+		if (!enabled) return message.lineReply(i18n.__("play.disabled"));
+		if (!message.member.voice.channel) return message.lineReply(i18n.__("common.errorNotChannel"));
+		if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.lineReply(i18n.__("common.errorNotChannel"));
+		if (!client.player.getQueue(message)) return message.lineReply(i18n.__("common.errorNotQueue"));
 
 		let queue = client.player.getQueue(message).tracks.map((tracks, i) => {
-			return `${i === 0 ? "**Current:**" : `**${i+1}.**`} **\`${tracks.title}\`** : ${tracks.author}`
+			return `${i === 0 ? `**${i18n.__("queue.embedCurrentSong")}:**` : `**${i + 1}.**`} **\`${tracks.title}\`** : ${tracks.author}`
 		}).join("\n");
 
 		const embed = new MessageEmbed()
-			.setTitle(`Queue`)
-			.setColor(require("../../messages.json").embed_color)
-			.setTimestamp()
-			.setFooter(require("../../messages.json").embed_footer.replace("(NAME)", message.author.username), message.author.avatarURL())
+			.setTitle(i18n.__("queue.embedTitle"))
+			.setColor("RANDOM")
 			.setDescription(queue)
+			.setFooter(i18n.__mf("common.executedBy", { name: message.author.username }), message.author.avatarURL())
+			.setTimestamp()
 		message.channel.send(embed);
 	},
 };
