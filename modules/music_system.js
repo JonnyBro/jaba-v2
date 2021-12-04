@@ -23,9 +23,6 @@ client.player
 	try {
 		var playingMessage = await message.channel.send(i18n.__mf("play.startedPlaying", { title: track.title, url: track.url }));
 
-		var loopSong = false;
-		var loopQueue = false;
-
 		await playingMessage.react("⏭");
 		await playingMessage.react("⏯");
 		await playingMessage.react("🔁");
