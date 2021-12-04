@@ -10,8 +10,7 @@ module.exports = {
 	usage: "[опционально (команда)]",
 	async execute(client, message, args) {
 		if (!args.length) {
-			console.log(readdirSync("../"))
-			const commandFoldersForHelp = readdirSync("../commands");
+			const commandFoldersForHelp = readdirSync("./commands");
 			for (const folder of commandFoldersForHelp) {
 				const data = [];
 				let embed = new MessageEmbed()
@@ -19,10 +18,10 @@ module.exports = {
 					.setColor("RANDOM")
 
 				data.push(`**${path.basename(folder)}**`);
-				const commandFiles = readdirSync(`../commands/${folder}`);
+				const commandFiles = readdirSync(`./commands/${folder}`);
 
 				for (const file of commandFiles) {
-					const command = require(`../commands/${folder}/${file}`);
+					const command = require(`./commands/${folder}/${file}`);
 					data.push(`**${command.emoji || ":package:"}** ${command.name} ${command.aliases ? `(${command.aliases.join(", ")})` : "" } - ${command.description}`);
 				};
 
