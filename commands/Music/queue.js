@@ -18,7 +18,7 @@ module.exports = {
 		let currentPage = 0;
 		const embeds = generateQueueEmbed(message, queue.songs);
 
-		const queueEmbed = await message.channel.send({ content: `**${i18n.__mf("queue.currentPage")} ${currentPage + 1}/${embeds.length}**`, embeds: [embeds[currentPage]] });
+		const queueEmbed = await message.channel.send(`**${i18n.__mf("queue.currentPage")} ${currentPage + 1}/${embeds.length}**`, { embed: embeds[currentPage] });
 
 		try {
 			await queueEmbed.react("⬅️");
@@ -34,25 +34,19 @@ module.exports = {
 
 		collector.on("collect", async (reaction, user) => {
 			try {
-				switch (reaction.emoji.name) {
-					case "➡️":
-						if (currentPage < embeds.length - 1) {
-							currentPage++;
-							queueEmbed.edit({ content: i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }), embeds: [embeds[currentPage]] });
-						};
-					break;
-
-					case "⬅️":
-						if (currentPage !== 0) {
-							--currentPage;
-							queueEmbed.edit({ content: i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }), embeds: [embeds[currentPage]] });
-						};
-					break;
-
-					case "⏹":
-						collector.stop();
+				if (reaction.emoji.name === "➡️") {
+					if (currentPage < embeds.length - 1) {
+						currentPage++;
+						queueEmbed.edit(i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }), { embed: embeds[currentPage] });
+					}
+				} else if (reaction.emoji.name === "⬅️") {
+					if (currentPage !== 0) {
+						--currentPage;
+						queueEmbed.edit(i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }), { embed: embeds[currentPage] });
+					}
+				} else if (reaction.emoji.name === "⏹") {
+					collector.stop();
 					reaction.message.reactions.removeAll();
-					break;
 				};
 
 				await reaction.users.remove(message.author.id);
