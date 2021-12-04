@@ -21,7 +21,7 @@ module.exports = {
 		if (command.description) data.push(`**${i18n.__("help.cmdDesc")}:** ${command.description}`);
 		if (command.usage) data.push(`**${i18n.__("help.usage")}:** **\`${client.prefix}${command.name} ${command.usage}\`**`);
 
-		data.push(`**${i18n.__("help.cooldown")}:** ${command.cooldown || 3} сек`);
+		data.push(`**${i18n.__("help.cooldown")}:** ${command.cooldown || ""} сек`);
 
 		const comembed = new MessageEmbed()
 			.setColor("RANDOM")
