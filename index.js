@@ -24,9 +24,6 @@ client.mongoose = require("./util/mongoose");
 client.cooldowns = new Collection();
 client.helpPages = [];
 
-client.buttons = require("discord-buttons");
-client.buttons(client);
-
 /*
  * Client Events
  */
