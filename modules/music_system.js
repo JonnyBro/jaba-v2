@@ -17,24 +17,21 @@ const i18n = require("../util/i18n");
 const player = new Player(client);
 client.player = player;
 
-client.player.enableLive = true;
-
 // Music system messages
 client.player
-.on("trackStart", (message, track) => {
-	message.channel.send(i18n.__mf("play.startedPlaying", { title: track.title, url: track.url }));
-	/*
+.on("trackStart", async (message, track) => {
 	try {
 		var playingMessage = await message.channel.send(i18n.__mf("play.startedPlaying", { title: track.title, url: track.url }));
 
+		var loopSong = false;
+		var loopQueue = false;
+
 		await playingMessage.react("⏭");
 		await playingMessage.react("⏯");
-		await playingMessage.react("🔇");
-		await playingMessage.react("🔉");
-		await playingMessage.react("🔊");
 		await playingMessage.react("🔁");
 		await playingMessage.react("🔂");
 		await playingMessage.react("🔀");
+		await playingMessage.react("⏏️");
 		await playingMessage.react("⏹");
 	} catch (error) {
 		console.error(error);
@@ -42,133 +39,101 @@ client.player
 
 	const filter = (reaction, user) => user.id !== message.client.user.id;
 	var collector = playingMessage.createReactionCollector(filter, {
-		time: song.duration > 0 ? song.duration * 1000 : 600000
+		time: track.duration > 0 ? track.duration * 1000 : 600000
 	});
 
 	collector.on("collect", (reaction, user) => {
-		if (!queue) return;
-		const member = message.guild.members.cache.get(user.id);
-
 		switch (reaction.emoji.name) {
 			case "⏭":
-				queue.playing = true;
 				reaction.users.remove(user).catch(console.error);
-				if (!canModifyQueue(member)) return queue.textChannel.send({ content: i18n.__("common.errorNotChannel") });
-				queue.connection.dispatcher.end();
-				queue.textChannel.send({ content: i18n.__mf("play.skipSong", { author: user }) }).catch(console.error);
+
+				if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.lineReply(i18n.__("common.errorNotChannel"));
+				client.player.skip(message);
+				message.channel.send(i18n.__mf("play.skipSong", { author: user }));
 
 				collector.stop();
-				break;
+			break;
 
 			case "⏯":
 				reaction.users.remove(user).catch(console.error);
-				if (!canModifyQueue(member)) return queue.textChannel.send({ content: i18n.__("common.errorNotChannel") });
-				if (queue.playing) {
-					queue.playing = !queue.playing;
-					queue.connection.dispatcher.pause(true);
-					queue.textChannel.send({ content: i18n.__mf("play.pauseSong", { author: user }) }).catch(console.error);
+
+				if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.lineReply(i18n.__("common.errorNotChannel"));
+
+				if (!client.player.getQueue(message).paused) {
+					client.player.pause(message);
+					message.channel.send(i18n.__mf("play.pauseSong", { author: user }));
 				} else {
-					queue.playing = !queue.playing;
-					queue.connection.dispatcher.resume();
-					queue.textChannel.send({ content: i18n.__mf("play.resumeSong", { author: user }) }).catch(console.error);
-				}
-				break;
-
-			case "🔇":
-				reaction.users.remove(user).catch(console.error);
-				if (!canModifyQueue(member)) return queue.textChannel.send({ content: i18n.__("common.errorNotChannel") });
-				if (queue.volume <= 0) {
-					queue.volume = 100;
-					queue.connection.dispatcher.setVolumeLogarithmic(100 / 100);
-					queue.textChannel.send({ content: i18n.__mf("play.unmutedSong", { author: user }) }).catch(console.error);
-				} else {
-					queue.volume = 0;
-					queue.connection.dispatcher.setVolumeLogarithmic(0);
-					queue.textChannel.send({ content: i18n.__mf("play.mutedSong", { author: user }) }).catch(console.error);
-				}
-				break;
-
-			case "🔉":
-				reaction.users.remove(user).catch(console.error);
-				if (queue.volume == 0) return;
-				if (!canModifyQueue(member)) return queue.textChannel.send({ content: i18n.__("common.errorNotChannel") });
-				if (queue.volume - 10 <= 0) queue.volume = 0;
-				else queue.volume = queue.volume - 10;
-				queue.connection.dispatcher.setVolumeLogarithmic(queue.volume / 100);
-				queue.textChannel.send({ content: i18n.__mf("play.decreasedVolume", { author: user, volume: queue.volume }) }).catch(console.error);
-				break;
-
-			case "🔊":
-				reaction.users.remove(user).catch(console.error);
-				if (queue.volume == 100) return;
-				if (!canModifyQueue(member)) return queue.textChannel.send({ content: i18n.__("common.errorNotChannel") });
-				if (queue.volume + 10 >= 100) queue.volume = 100;
-				else queue.volume = queue.volume + 10;
-				queue.connection.dispatcher.setVolumeLogarithmic(queue.volume / 100);
-				queue.textChannel.send({ content: i18n.__mf("play.increasedVolume", { author: user, volume: queue.volume }) }).catch(console.error);
-				break;
+					client.player.resume(message);
+					message.channel.send(i18n.__mf("play.resumeSong", { author: user }));
+				};
+			break;
 
 			case "🔁":
 				reaction.users.remove(user).catch(console.error);
-				if (!canModifyQueue(member)) return queue.textChannel.send({ content: i18n.__("common.errorNotChannel") });
-				queue.loopSong = false;
-				queue.loop = !queue.loop;
-				queue.textChannel.send(i18n.__mf("play.loopSong", { author: user, loop: queue.loop ? i18n.__("common.on") : i18n.__("common.off") })).catch(console.error);
-				break;
+
+				if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.lineReply(i18n.__("common.errorNotChannel"));
+
+				if (!client.player.getQueue(message).loopMode) {
+					client.player.setLoopMode(message, true);
+					message.channel.send(i18n.__mf("play.loopQueue", { author: user, loop: client.player.getQueue(message).loopMode ? i18n.__("common.on") : i18n.__("common.off") }));
+				} else {
+					client.player.setLoopMode(message, false);
+					message.channel.send(i18n.__mf("play.loopQueue", { author: user, loop: client.player.getQueue(message).loopMode ? i18n.__("common.on") : i18n.__("common.off") }));
+				};
+
+			break;
 
 			case "🔂":
 				reaction.users.remove(user).catch(console.error);
-				if (!canModifyQueue(member)) return queue.textChannel.send({ content: i18n.__("common.errorNotChannel") });
-				queue.loop = false;
-				queue.loopSong = !queue.loopSong;
-				queue.textChannel.send({ content: i18n.__mf("play.loopSong", { author: user, loop: queue.loopSong ? i18n.__("common.on") : i18n.__("common.off")}) }).catch(console.error);
-				break;
+
+				if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.lineReply(i18n.__("common.errorNotChannel"));
+
+				if (!client.player.getQueue(message).repeatMode) {
+					client.player.setRepeatMode(message, true);
+					message.channel.send(i18n.__mf("play.loopSong", { author: user, loop: client.player.getQueue(message).repeatMode ? i18n.__("common.on") : i18n.__("common.off") }));
+				} else {
+					client.player.setRepeatMode(message, false);
+					message.channel.send(i18n.__mf("play.loopSong", { author: user, loop: client.player.getQueue(message).repeatMode ? i18n.__("common.on") : i18n.__("common.off") }));
+				};
+			break;
 
 			case "🔀":
 				reaction.users.remove(user).catch(console.error);
-				if (!canModifyQueue(member)) return queue.textChannel.send({ content: i18n.__("common.errorNotChannel") });
+				if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.lineReply(i18n.__("common.errorNotChannel"));
 
-				let songs = queue.songs;
-				if (!songs) return queue.textChannel.send({ content: i18n.__("common.errorNotQueue") })
+				client.player.shuffle(message);
+				message.channel.send(i18n.__mf("shuffle.result", { author: user }));
+			break;
 
-				for (let i = songs.length - 1; i > 1; i--) {
-					let j = 1 + Math.floor(Math.random() * i);
-					[songs[i], songs[j]] = [songs[j], songs[i]];
-				}
+			case "⏏️":
+				reaction.users.remove(user).catch(console.error);
+				if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.lineReply(i18n.__("common.errorNotChannel"));
 
-				queue.songs = songs;
-
-				queue.textChannel.send({ content: i18n.__mf("shuffle.result", {author: user}) }).catch(console.error);
-				break;
+				client.player.clearQueue(message);
+				message.channel.send(i18n.__mf("play.queueClear", { author: user }));
+			break;
 
 			case "⏹":
 				reaction.users.remove(user).catch(console.error);
-				if (!canModifyQueue(member)) return i18n.__("common.errorNotChannel");
-				queue.songs = [];
-				queue.textChannel.send({ content: i18n.__mf("play.stopSong", { author: user }) }).catch(console.error);
-				try {
-					queue.connection.dispatcher.end();
-				} catch (error) {
-					console.error(error);
-					queue.connection.disconnect();
-				}
+				if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.lineReply(i18n.__("common.errorNotChannel"));
+
+				client.player.stop(message);
+				message.channel.send(i18n.__mf("play.stopSong", { author: user }));
 
 				collector.stop();
-				break;
+			break;
 
 			default:
 				reaction.users.remove(user).catch(console.error);
-				break;
-		}
+			break;
+		};
 	});
 
 	collector.on("end", () => {
 		if (playingMessage && !playingMessage.deleted) {
-			playingMessage.reactions.removeAll().catch(console.error);
-			playingMessage.delete({ timeout: 4000 }).catch(console.error);
+			playingMessage.delete({ timeout: 3000 }).catch(console.error);
 		};
 	});
-	*/
 })
 .on("trackAdd", (message, queue, track) => message.channel.send(i18n.__mf("play.queueAdded", { author: message.author, title: track.title })))
 .on("playlistAdd", (message, queue, playlist) => message.channel.send(i18n.__mf("playlist.startedPlaylist", { author: message.author, tracks: playlist.track.length, title: playlist.title })))
@@ -192,8 +157,14 @@ client.player
 .on("searchCancel", (message, query, tracks) => message.channel.send(i18n.__("search.searchCancel")))
 .on("noResults", (message, query) => message.channel.send(i18n.__mf("search.noResults", { search: query })))
 .on("queueEnd", (message, queue) => message.channel.send(i18n.__("play.queueEnded")))
-.on("channelEmpty", (message, queue) => message.channel.send(i18n.__("play.everyoneLeft")))
-.on("botDisconnect", (message) => message.channel.send(i18n.__("play.leaveChannel")))
+.on("channelEmpty", (message, queue) => {
+	message.channel.send(i18n.__("play.everyoneLeft"));
+	playingMessage.delete({ timeout: 3000 }).catch(console.error);
+})
+.on("botDisconnect", (message) => {
+	message.channel.send(i18n.__("play.leaveChannel"));
+	playingMessage.delete({ timeout: 3000 }).catch(console.error);
+})
 .on("error", (error, message) => {
 	switch(error) {
 		case "NotPlaying":

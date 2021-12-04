@@ -142,17 +142,19 @@
 		"startedPlaying": "Началось воспроизведение: **{title}** <{url}>",
 		"skipSong": "<@{author}> пропустил текущий трек",
 		"pauseSong": "<@{author}> поставил текущий трек на паузу",
+		"stopSong": "<@{author}> остановил воспроизведение трека",
 		"resumeSong": "<@{author}> продолжил воспроизведение текущего трека!",
 		"unmutedSong": "<@{author}> включил звук у трека!",
 		"mutedSong": "<@{author}> отключил звук у трека!",
-		"decreasedVolume": "<@{author}> убавил громкость, текущая громкость {volume}%",
-		"increasedVolume": "<@{author}> прибавил громкость, текущая громкость {volume}%",
 		"loopSong": "<@{author}> {loop} повтор одного трека",
 		"loopQueue": "<@{author}> {loop} повтор очереди"
 	},
 	"seek": {
 		"description": "Пропускает данное кол-во секунд текущего трека",
 		"result": "<@{author}> пропустил {seconds} секунд"
+	},
+	"stop": {
+		"description": "Остановить воспроизведение трека и очистить очередь"
 	},
 	"playlist": {
 		"description": "Добавить плейлист с YouTube в очередь",
@@ -206,13 +208,6 @@
 	"uptime": {
 		"description": "Проверить время работы бота",
 		"result": "Бот работает уже: `{days} день(дня/дней), {hours} ч, {minutes} м, {seconds} сек`"
-	},
-	"volume": {
-		"description": "Изменить громкость текущего трека",
-		"currentVolume": "Текущая громкость: **{volume}%**",
-		"errorNotNumber": "Укажите число",
-		"errorNotValid": "Укажите число от 0 до 100",
-		"result": "Громкость установлена на: **{arg}%**"
 	},
 	"eval": {
 		"description": "Выполнить код",

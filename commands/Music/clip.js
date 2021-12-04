@@ -10,25 +10,11 @@ module.exports = {
 	guildOnly: true,
 	async execute(client, message, args) {
 		const { channel } = message.member.voice;
-		const queue = client.queue.get(message.guild.id);
 
 		if (!args.length) return message.lineReply(i18n.__("clip.usagesReply")).catch(console.error);
 		if (!existsSync(`./clips/${args[0]}.mp3`)) return message.lineReply(i18n.__("clip.noFile")).catch(console.error);
 		if (queue) return message.lineReply(i18n.__("clip.errorQueue"));
 		if (!channel) return message.lineReply(i18n.__("common.errorNotChannel")).catch(console.error);
-
-		const queueConstruct = {
-			textChannel: message.channel,
-			channel,
-			connection: null,
-			songs: [],
-			loop: false,
-			loopSong: false,
-			volume: DEFAULT_VOLUME || 100,
-			playing: true
-		};
-
-		client.queue.set(message.guild.id, queueConstruct);
 
 		try {
 			queueConstruct.connection = await channel.join();
