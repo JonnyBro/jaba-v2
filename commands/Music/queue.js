@@ -29,8 +29,11 @@ module.exports = {
 			message.channel.send({ content: error.message }).catch(console.error);
 		}
 
-		const filter = (reaction, user) => ["⬅️", "⏹", "➡️"].includes(reaction.emoji.name) && message.author.id === user.id;
-		const collector = queueEmbed.createReactionCollector({ filter, time: 60000 });
+		const filter = (reaction, user) =>
+			["⬅️", "⏹", "➡️"].includes(reaction.emoji.name) && message.author.id === user.id;
+		const collector = queueEmbed.createReactionCollector({ filter,
+			time: 60000
+		});
 
 		collector.on("collect", async (reaction, user) => {
 			try {
@@ -44,7 +47,7 @@ module.exports = {
 						--currentPage;
 						queueEmbed.edit(i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }), { embed: embeds[currentPage] });
 					}
-				} else if (reaction.emoji.name === "⏹") {
+				} else {
 					collector.stop();
 					reaction.message.reactions.removeAll();
 				};
