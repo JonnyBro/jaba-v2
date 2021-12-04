@@ -76,7 +76,7 @@ for (const folder of commandFoldersForHelp) {
 	const commandFiles = readdirSync(`./commands/${folder}`);
 	for (const file of commandFiles) {
 		const command = require(`./commands/${folder}/${file}`);
-		data.push(`${command.emoji || ":package:"} **${command.name} ${command.aliases ? `(${command.aliases})` : ""}** - ${command.description}`);
+		data.push(`${command.emoji || ":package:"} **${command.name} ${command.aliases ? `(${command.aliases.join(", ")})` : ""}** - ${command.description}`);
 	};
 
 	embed.setDescription(data);
