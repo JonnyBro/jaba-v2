@@ -5,6 +5,7 @@ const i18n = require("../../util/i18n");
 module.exports = {
 	name: "sync",
 	description: "Синхронизировать уровни текущего сервера с уровнями Mee6",
+	emoji: ":gem:",
 	guildOnly: true,
 	async execute(client, message) {
 		if (!enabled) return message.channel.send(i18n.__("leveling.disabled"));
