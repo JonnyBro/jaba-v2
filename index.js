@@ -22,7 +22,6 @@ client.prefix = PREFIX;
 client.queue = new Map();
 client.mongoose = require("./util/mongoose");
 client.cooldowns = new Collection();
-client.helpPages = [];
 
 client.buttons = require('discord-buttons');
 client.buttons(client);
@@ -45,8 +44,8 @@ for (const file of eventFiles) {
 		console.log("[INIT]".gray + ` ${eventName} - event loaded`);
 	} catch(error) {
 		console.error(error);
-	}
-}
+	};
+};
 
 /**
  * Commands Handler
@@ -58,26 +57,5 @@ for (const folder of commandFolders) {
 		const command = require(`./commands/${folder}/${file}`);
 		client.commands.set(command.name, command);
 		console.log("[INIT]".gray + ` ${command.name} - command loaded`);
-	}
-}
-
-/**
- * Help Pages
- */
-const commandFoldersForHelp = readdirSync("./commands");
-for (const folder of commandFoldersForHelp) {
-	const data = [];
-	let embed = new MessageEmbed()
-		.setTitle("Список команд")
-		.setColor("RANDOM")
-
-	const commandFiles = readdirSync(`./commands/${folder}`);
-	data.push(`**${path.basename(folder)}**`);
-	for (const file of commandFiles) {
-		const command = require(`./commands/${folder}/${file}`);
-		data.push(`**${command.emoji || ":package:"}** ${command.name} - ${command.description}`);
-	}
-
-	embed.setDescription(data);
-	client.helpPages.push(embed);
-}
+	};
+};

@@ -4,7 +4,6 @@ const i18n = require("../../util/i18n");
 
 module.exports = {
 	name: "hentai",
-	aliases: ["h"],
 	description: i18n.__("hentai.description"),
 	usage: "[категория (опционально)/help]",
 	emoji: ":smiling_imp:",
