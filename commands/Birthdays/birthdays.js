@@ -26,7 +26,7 @@ module.exports = {
 			.setFooter(i18n.__mf("common.executedBy", { name: message.author.username }), message.author.avatarURL())
 			.setTimestamp()
 		message.channel.send(embed);
-	},
+	}
 };
 
 const formatUsers = (accumulator, member) => {

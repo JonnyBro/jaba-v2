@@ -45,5 +45,5 @@ module.exports = {
 
 			message.channel.send(i18n.__mf("birthdays.birthdayCreated", { date: formattedDate }));
 		}
-	},
+	}
 };

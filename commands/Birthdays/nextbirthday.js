@@ -30,7 +30,7 @@ module.exports = {
 			.setTimestamp()
 			.setFooter(i18n.__mf("common.executedBy", { name: message.author.username }), message.author.avatarURL())
 		message.channel.send(embed);
-	},
+	}
 };
 
 const formatUser = (member) => {
