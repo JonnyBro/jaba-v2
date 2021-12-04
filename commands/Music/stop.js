@@ -1,19 +1,18 @@
-const { canModifyQueue } = require("../../util/util");
+const { enabled } = require("../../modules/music_system");
 const i18n = require("../../util/i18n");
 
 module.exports = {
 	name: "stop",
 	description: i18n.__("stop.description"),
-	emoji: ":musical_note:",
 	guildOnly: true,
-	execute(client, message) {
-		const queue = client.queue.get(message.guild.id);
+	emoji: ":stop_button:",
+	async execute(client, message, args) {
+		if (!enabled) return message.lineReply(i18n.__("play.disabled"));
+		if (!message.member.voice.channel) return message.lineReply(i18n.__("common.errorNotChannel"));
+		if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.lineReply(i18n.__("common.errorNotChannel"));
+		if (!client.player.getQueue(message)) return message.lineReply(i18n.__("common.errorNotQueue"));
 
-		if (!queue) return message.lineReply(i18n.__("common.errorNotQueue")).catch(console.error);
-		if (!canModifyQueue(message.member)) return message.lineReply(i18n.__("common.errorNotChannel"));
-
-		queue.songs = [];
-		queue.connection.dispatcher.end();
-		queue.textChannel.send(i18n.__mf("stop.result", { author: message.author })).catch(console.error);
+		client.player.stop(message);
+		message.channel.send(i18n.__mf("play.stopSong", { author: message.author }));
 	}
 };

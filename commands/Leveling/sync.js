@@ -1,4 +1,4 @@
-const { Levels, enabled } = require("../../include/leveling.js");
+const { Levels, enabled } = require("../../modules/leveling");
 const { getUserXp } = require("mee6-levels-api");
 const i18n = require("../../util/i18n");
 

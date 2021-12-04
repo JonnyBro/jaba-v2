@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const { Levels, enabled } = require("../../include/leveling.js");
+const { Levels, enabled } = require("../../modules/leveling");
 const i18n = require("../../util/i18n");
 
 module.exports = {

@@ -1,6 +1,6 @@
 module.exports.name = "Discord-IRC Integration";
 
-// JonnyBot Discord-IRC Integration
+// JaBa Discord-IRC Integration
 // Thanks to Lambdapse
 // This requires package irc from npm
 // So first you have to install that before setting this up
@@ -20,7 +20,7 @@ const ircmsgformat = "`**(NAME)** => **(CHANNEL):** (MESSAGE)`";
 // What server will the bot connect to?
 const server = "irc.freenode.net";
 // The bot's nickname in the IRC server
-const nick = discordclient.user.username;
+const nick = "JaBa";
 // Which channel should it connect to
 const ircchannel = "#freenode";
 // How will the message show up on IRC

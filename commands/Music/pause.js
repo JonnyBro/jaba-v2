@@ -1,24 +1,21 @@
-const { canModifyQueue } = require("../../util/util");
+const { enabled } = require("../../modules/music_system");
 const i18n = require("../../util/i18n");
 
 module.exports = {
 	name: "pause",
 	description: i18n.__("pause.description"),
-	emoji: ":musical_note:",
 	guildOnly: true,
-	execute(client, message) {
-		const queue = client.queue.get(message.guild.id);
-		if (!queue) return message.lineReply(i18n.__("common.errorNotQueue")).catch(console.error);
-		if (!canModifyQueue(message.member)) return message.lineReply(i18n.__("common.errorNotChannel"));
+	emoji: ":play_pause:",
+	async execute(client, message, args) {
+		if (!enabled) return message.channel.send(i18n.__("play.disabled"));
+		if (!message.member.voice.channel) return message.lineReply(i18n.__("common.errorNotChannel"));
+		if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.lineReply(i18n.__("common.errorNotChannel"));
+		if (!client.player.getQueue(message)) return message.lineReply(i18n.__("common.errorNotQueue"));
 
-		if (queue.playing) {
-			queue.playing = false;
-			queue.connection.dispatcher.pause(true);
-			return queue.textChannel.send(i18n.__mf("play.pauseSong", { author: message.author })).catch(console.error);
-		} else if (!queue.playing) {
-			queue.playing = true;
-			queue.connection.dispatcher.resume();
-			return queue.textChannel.send(i18n.__mf("play.resumeSong", { author: message.author })).catch(console.error);
+		if (!client.player.getQueue(message).paused) {
+			client.player.pause(message);
+		} else {
+			client.player.resume(message);
 		};
 	}
 };
