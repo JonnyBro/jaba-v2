@@ -1,5 +1,6 @@
 const { readdirSync } = require("fs");
 const { MessageEmbed } = require("discord.js");
+const path = require("path");
 const i18n = require("../../util/i18n");
 
 module.exports = {
