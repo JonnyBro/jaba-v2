@@ -16,51 +16,51 @@ module.exports = {
 		if (!queue) return message.channel.send(i18n.__("common.errorNotQueue"));
 
 		let currentPage = 0;
+		const embeds = generateQueueEmbed(message, queue.songs);
+
+		const queueEmbed = await message.channel.send({ content: `**${i18n.__mf("queue.currentPage")} ${currentPage + 1}/${embeds.length}**`, embeds: [embeds[currentPage]] });
 
 		try {
-			var embeds = generateQueueEmbed(message, queue.songs);
-
-			var left = new message.client.buttons.MessageButton()
-				.setStyle("blurple")
-				.setEmoji("⬅️")
-				.setID("left_button")
-			var right = new message.client.buttons.MessageButton()
-				.setStyle("blurple")
-				.setEmoji("➡️")
-				.setID("right_button")
-
-			var queueEmbed = await message.channel.send(`**${i18n.__("queue.currentPage")} ${currentPage + 1}/${embeds.length}**`, {
-				embed: embeds[currentPage],
-				buttons: [ left, right ]
-			});
-
-			message.client.on("clickButton", async (button) => {
-				switch (button.id) {
-					case "left_button":
-						if (currentPage !== 0) {
-							--currentPage;
-							queueEmbed.edit(i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }), {
-								embed: embeds[currentPage],
-								buttons: [ left, right ]
-							});
-						}
-					break;
-
-					case "right_button":
-						if (currentPage < embeds.length - 1) {
-							currentPage++;
-							queueEmbed.edit(i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }), {
-								embed: embeds[currentPage],
-								buttons: [ left, right ]
-							});
-						}
-					break;
-				};
-			});
+			await queueEmbed.react("⬅️");
+			await queueEmbed.react("⏹");
+			await queueEmbed.react("➡️");
 		} catch (error) {
 			console.error(error);
-			message.channel.send(error.message).catch(console.error);
-		};
+			message.channel.send({ content: error.message }).catch(console.error);
+		}
+
+		const filter = (reaction, user) => ["⬅️", "⏹", "➡️"].includes(reaction.emoji.name) && message.author.id === user.id;
+		const collector = queueEmbed.createReactionCollector({ filter, time: 60000 });
+
+		collector.on("collect", async (reaction, user) => {
+			try {
+				switch (reaction.emoji.name) {
+					case "➡️":
+						if (currentPage < embeds.length - 1) {
+							currentPage++;
+							queueEmbed.edit({ content: i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }), embeds: [embeds[currentPage]] });
+						};
+					break;
+
+					case "⬅️":
+						if (currentPage !== 0) {
+							--currentPage;
+							queueEmbed.edit({ content: i18n.__mf("queue.currentPage", { page: currentPage + 1, length: embeds.length }), embeds: [embeds[currentPage]] });
+						};
+					break;
+
+					case "⏹":
+						collector.stop();
+					reaction.message.reactions.removeAll();
+					break;
+				};
+
+				await reaction.users.remove(message.author.id);
+			} catch (error) {
+				console.error(error);
+				return message.channel.send(error.message).catch(console.error);
+			};
+		});
 	}
 };
 
