@@ -1,24 +1,17 @@
-const { canModifyQueue } = require("../../util/util");
-const i18n = require("../../util/i18n");
+const { enabled } = require("../../modules/music_system");
 
 module.exports = {
 	name: "pause",
-	description: i18n.__("pause.description"),
-	emoji: ":musical_note:",
+	description: "Pauses the current song (if playing).",
 	guildOnly: true,
-	execute(client, message) {
-		const queue = client.queue.get(message.guild.id);
-		if (!queue) return message.lineReply(i18n.__("common.errorNotQueue")).catch(console.error);
-		if (!canModifyQueue(message.member)) return message.lineReply(i18n.__("common.errorNotChannel"));
+	emoji: ":play_pause:",
+	async execute(client, message, args) {
+		if (!enabled) return message.channel.send(require("../../messages.json").music_disabled);
 
-		if (queue.playing) {
-			queue.playing = false;
-			queue.connection.dispatcher.pause(true);
-			return queue.textChannel.send(i18n.__mf("play.pauseSong", { author: message.author })).catch(console.error);
-		} else if (!queue.playing) {
-			queue.playing = true;
-			queue.connection.dispatcher.resume();
-			return queue.textChannel.send(i18n.__mf("play.resumeSong", { author: message.author })).catch(console.error);
+		if (args[0].toLowerCase() == "on") {
+			client.player.pause(message);
+		} else if (args[0].toLowerCase() == "off") {
+			client.player.resume(message);
 		};
 	}
 };

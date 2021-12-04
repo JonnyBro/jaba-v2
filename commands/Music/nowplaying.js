@@ -1,41 +1,28 @@
-const { splitBar } = require("string-progressbar");
 const { MessageEmbed } = require("discord.js");
-
-const i18n = require("../../util/i18n");
+const { enabled } = require("../../modules/music_system");
 
 module.exports = {
 	name: "nowplaying",
-	description: i18n.__("nowplaying.description"),
 	aliases: ["np"],
-	emoji: ":musical_note:",
+	description: "Shows what\"s playing.",
 	guildOnly: true,
-	execute(client, message) {
-		const queue = client.queue.get(message.guild.id);
-		if (!queue) return message.lineReply(i18n.__("common.errorNotQueue")).catch(console.error);
+	emoji: ":notepad_spiral:",
+	async execute(client, message, args) {
+		if (!enabled) return message.channel.send(require("../../messages.json").music_disabled);
+		if (!message.member.voice.channel) return message.channel.send(require("../../messages.json").music_notconnected);
+		if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(require("../../messages.json").music_notsamevc);
+		if (!client.player.getQueue(message)) return message.channel.send(require("../../messages.json").music_queueempty);
 
-		const song = queue.songs[0];
-		const seek = (queue.connection.dispatcher.streamTime - queue.connection.dispatcher.pausedTime) / 1000;
-		const left = song.duration - seek;
-
-		let nowPlaying = new MessageEmbed()
-			.setTitle(i18n.__("nowplaying.embedTitle"))
-			.setDescription(`${song.title}\n${song.url}`)
-			.setColor("#F8AA2A")
-			.setAuthor(client.user.username);
-
-		if (song.duration > 0) {
-			nowPlaying.addField(
-				"\n",
-				new Date(seek * 1000).toISOString().substr(11, 8) +
-					"[" +
-					splitBar(song.duration == 0 ? seek : song.duration, seek, 20)[0] +
-					"]" +
-					(song.duration == 0 ? i18n.__(nowplaying.live) : new Date(song.duration * 1000).toISOString().substr(11, 8)),
-				false
-			);
-			nowPlaying.setFooter(i18n.__mf("nowplaying.timeRemaining", { time: new Date(left * 1000).toISOString().substr(11, 8) }));
-		}
-
-		return message.channel.send(nowPlaying);
+		const track = client.player.nowPlaying(message);
+		const filters = [];
+		Object.keys(client.player.getQueue(message).filters).forEach((filterName) => client.player.getQueue(message).filters[filterName]) ? filters.push(filterName) : false;
+		const embed = new MessageEmbed()
+			.setTitle("Now playing")
+			.setColor(require("../../messages.json").embed_color)
+			.setFooter(require("../../messages.json").embed_footer.replace("(NAME)", message.author.username), message.author.avatarURL())
+			.setTimestamp()
+			.setDescription(`**Track title:** ${track.title}\n**Channel name:** ${track.author}\n**Requested by:** ${track.requestedBy.tag}\n**From playlist:** ${track.fromPlaylist ? "Yes" : "No"}\n**Views:** ${track.views}\n**Duration:** ${track.duration}\n**Repeat mode:** ${client.player.getQueue(message).repeatMode ? "Yes" : "No"}\n${client.player.createProgressBar(message, { timecodes: true })}`)
+			.setThumbnail(track.thumbnail)
+		message.channel.send(embed);
 	}
 };

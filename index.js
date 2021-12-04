@@ -24,7 +24,7 @@ client.mongoose = require("./util/mongoose");
 client.cooldowns = new Collection();
 client.helpPages = [];
 
-client.buttons = require('discord-buttons');
+client.buttons = require("discord-buttons");
 client.buttons(client);
 
 /*
@@ -34,9 +34,18 @@ client.on("warn", (warn) => console.log(warn));
 client.on("error", console.error);
 
 /*
+ * Modules Handler
+ */
+const modules = fs.readdirSync("./modules").filter(file => file.endsWith(".js"));
+for (const file of modules) {
+	const module = require(`./modules/${file}`);
+	console.log("[INIT]".gray + ` ${module.name} - module loaded`);
+};
+
+/*
  * Events Handler
  */
-const eventFiles = readdirSync('./events').filter(file => file.endsWith('.js'));
+const eventFiles = readdirSync("./events").filter(file => file.endsWith(".js"));
 for (const file of eventFiles) {
 	const eventName = file.split(".")[0];
 	const event = require(`./events/${file}`);

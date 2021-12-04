@@ -1,27 +1,14 @@
-const { canModifyQueue } = require("../../util/util");
-const i18n = require("../../util/i18n");
+const { enabled } = require("../../modules/music_system");
 
 module.exports = {
 	name: "shuffle",
-	aliases: ["sh"],
-	description: i18n.__("shuffle.description"),
-	emoji: ":musical_note:",
+	aliases: ["shufflequeue"],
+	description: "Shuffles the queue",
 	guildOnly: true,
-	execute(client, message) {
-		const queue = client.queue.get(message.guild.id);
-		if (!queue) return message.channel.send(i18n.__("common.errorNotQueue")).catch(console.error);
-		if (!canModifyQueue(message.member)) return message.lineReply(i18n.__("common.errorNotChannel"));
-
-		let songs = queue.songs;
-		if (!songs) return queue.textChannel.send(i18n.__("common.errorNotQueue"));
-
-		for (let i = songs.length - 1; i > 1; i--) {
-			let j = 1 + Math.floor(Math.random() * i);
-			[songs[i], songs[j]] = [songs[j], songs[i]];
-		};
-
-		queue.songs = songs;
-		client.queue.set(message.guild.id, queue);
-		queue.textChannel.send(i18n.__mf("shuffle.result", {author: message.author})).catch(console.error);
+	emoji: ":transgender_flag:",
+	async execute(client, message, args) {
+		if (!enabled) return message.channel.send(require("../../messages.json").music_disabled);
+		client.player.shuffle(message);
+		message.channel.send(require("../../messages.json").music_shuffle);
 	}
 };

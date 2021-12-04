@@ -1,12 +1,13 @@
 const { enabled } = require("../../modules/music_system");
 
 module.exports = {
-	name: "skip",
-	description: "Skips the current song.",
+	name: "seek",
+	description: "Seeks through the current song.",
+	usage: "[time of the video in seconds]",
 	guildOnly: true,
-	emoji: ":middle_finger:",
+	emoji: ":see_no_evil:",
 	async execute(client, message, args) {
 		if (!enabled) return message.channel.send(require("../../messages.json").music_disabled);
-		client.player.skip(message);
+		client.player.seek(message, args[0]);
 	}
 };

@@ -17,7 +17,7 @@ module.exports = async (client) => {
 			`${client.prefix}help и ${client.prefix}play, WATCHING`,
 			`${servers} сервер(а/ов), WATCHING`
 		];
-		const status = statuses[i].split(', '); // name = [0], type = [1]
+		const status = statuses[i].split(", "); // name = [0], type = [1]
 		i = (i + 1) % statuses.length;
 
 		client.user.setPresence({ activity: { name: status[0], type: status[1] }, status: "online" });

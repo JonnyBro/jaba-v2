@@ -1,19 +1,19 @@
-const { canModifyQueue } = require("../../util/util");
-const i18n = require("../../util/i18n");
+const { enabled } = require("../../modules/music_system");
 
 module.exports = {
 	name: "loop",
-	aliases: ["l"],
-	description: i18n.__("loop.description"),
-	emoji: ":musical_note:",
+	description: "Allows you to change the loop mode of the queue.",
+	usage: "[on/off]",
 	guildOnly: true,
-	execute(client, message) {
-		const queue = client.queue.get(message.guild.id);
-		if (!queue) return message.lineReply(i18n.__("common.errorNotQueue")).catch(console.error);
-		if (!canModifyQueue(message.member)) return message.lineReply(i18n.__("common.errorNotChannel"));
+	async execute(client, message, args) {
+		if (!enabled) return message.channel.send(require("../../messages.json").music_disabled);
 
-		queue.loopSong = false;
-		queue.loop = !queue.loop;
-		return queue.textChannel.send(i18n.__mf("loop.result", { loop: queue.loop ? i18n.__("common.on") : i18n.__("common.off") })).catch(console.error);
+		if (args[0].toLowerCase() == "on") {
+			client.player.setLoopMode(message, true);
+			message.channel.send(require("../../messages.json").music_loopon);
+		} else if (args[0].toLowerCase() == "off") {
+			client.player.setLoopMode(message, false);
+			message.channel.send(require("../../messages.json").music_loopoff);
+		};
 	}
 };
