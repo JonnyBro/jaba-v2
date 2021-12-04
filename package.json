@@ -8,7 +8,6 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
-    "@discordjs/opus": "^0.5.3",
     "array-move": "^3.0.1",
     "canvacord": "^5.2.3",
     "colors": "^1.4.0",
@@ -25,17 +24,10 @@
     "mc-player-api": "^1.0.0",
     "mee6-levels-api": "^1.3.0",
     "minecraft-server-status-improved": "^1.0.4",
-    "moment": "^2.29.1",
     "mongoose": "^6.0.14",
     "node-cron": "^3.0.0",
     "node-fetch": "^2.6.6",
-    "node-superfetch": "^0.2.3",
-    "simple-youtube-api": "^5.1.1",
-    "soundcloud-downloader": "^1.0.0",
-    "string-progressbar": "^1.0.3",
-    "tar": "^6.1.11",
-    "ytdl-core": "^4.9.1",
-    "ytdl-core-discord": "^1.2.5"
+    "node-superfetch": "^0.2.3"
   },
   "scripts": {
     "start": "node index.js"

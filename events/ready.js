@@ -6,7 +6,7 @@ module.exports = async (client) => {
 	await client.mongoose.init();
 
 	console.log(`\nLoaded a total of ${client.commands.size} command(s)`)
-	console.log(`${client.user.tag}, ready to serve ${client.users.cache.size} users in ${client.guilds.cache.size} servers`);
+	console.log(`${client.user.tag}, ready to serve ${client.users.cache.size} users in ${client.guilds.cache.filter(guild => guild.id != 892727526911258654).size} servers`);
 	client.generateInvite({ permissions: ["ADMINISTRATOR"] }).then(link => console.log(`Invite Link: ${link}`));
 	client.user.setPresence({ activity: { name: `${client.prefix}help и ${client.prefix}play`, type: "WATCHING" }, status: "online" });
 
