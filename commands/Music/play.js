@@ -12,7 +12,7 @@ module.exports = {
 		if (!enabled) return message.channel.send(i18n.__("play.disabled"));
 		if (!message.member.voice.channel) return message.lineReply(i18n.__("common.errorNotChannel"));
 		if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.lineReply(i18n.__("common.errorNotChannel"));
-		console.log(args.join(" "))
-		client.player.play(message, args.join(" "));
+
+		client.player.play(message, args.join(" ").toString());
 	}
 };
