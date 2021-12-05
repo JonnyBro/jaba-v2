@@ -126,9 +126,9 @@
 	},
 	"play": {
 		"disabled": "Система музыки отключена",
-		"description": "Воспроизвести трек с YouTube или Soundcloud",
+		"description": "Воспроизвести трек с YouTube, Spotify или Soundcloud",
 		"errorNotInSameChannel": "Вы должны быть в одном голосовом канале с <@{user}>",
-		"usageReply": "Использование: {prefix}play <YouTube URL | Video Name | Soundcloud URL>",
+		"usageReply": "Использование: {prefix}play <YouTube URL | Video Name | | Spotify URL | Soundcloud URL>",
 		"missingPermissionConnect": "Не могу подключиться к голосовому каналу, недостаточно прав",
 		"missingPermissionSpeak": "Я не могу говорить в этом канале, недостаточно прав!",
 		"cantJoinChannel": "Не могу подключиться к каналу: {error}",
@@ -179,16 +179,6 @@
 		"description": "Продолжить воспроизведение текущего трека",
 		"resultNotPlaying": "<@{author}> ▶ продолжил воспроизведение текущего трека!",
 		"errorPlaying": "Очередь не на паузе"
-	},
-	"search": {
-		"description": "Поиск по YouTube",
-		"usageReply": "Использование: {prefix}{name} <название видео>",
-		"searchCancel": "Поиск отменён",
-		"noResults": "Результатов по запросу **{search}** не найдено",
-		"noSearch": "Введите число от 1 до {number}",
-		"errorAlreadyCollector": "Поиск трека уже используется",
-		"searchDesc": "Результаты по запросу: **{search}**",
-		"searchDesc2": "Введите `cancel`, если хотите отменить поиск"
 	},
 	"serverinfo": {
 		"description": "Информация о текущем Discord сервере"
