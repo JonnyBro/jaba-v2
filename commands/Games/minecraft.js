@@ -57,7 +57,7 @@ module.exports = {
 				const embed = new MessageEmbed()
 					.setColor("RANDOM")
 					.setThumbnail(data.servericon)
-					.setAuthor(`${data.hostname} (${data.version})`)
+					.setAuthor(`${args[1]} (${data.version})`)
 
 					.addField("IP", data.server.name, true)
 					.addField("Описание", data.motd)

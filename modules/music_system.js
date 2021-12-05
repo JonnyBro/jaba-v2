@@ -156,11 +156,15 @@ client.player
 .on("queueEnd", (message, queue) => message.channel.send(i18n.__("play.queueEnded")))
 .on("channelEmpty", (message, queue) => {
 	message.channel.send(i18n.__("play.everyoneLeft"));
-	playingMessage.delete({ timeout: 3000 }).catch(console.error);
+	if (playingMessage) {
+		playingMessage.delete({ timeout: 3000 }).catch(console.error);
+	};
 })
 .on("botDisconnect", (message) => {
 	message.channel.send(i18n.__("play.leaveChannel"));
-	playingMessage.delete({ timeout: 3000 }).catch(console.error);
+	if (playingMessage) {
+		playingMessage.delete({ timeout: 3000 }).catch(console.error);
+	};
 })
 .on("error", (error, message) => {
 	switch(error) {
