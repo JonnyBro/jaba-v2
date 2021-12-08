@@ -1,23 +1,25 @@
 {
-	"discordtogether": {
-		"clickHere": "Нажмите сюда чтобы начать",
-		"disabled": ":information_source: **Discord Activities отключены**",
-		"betrayal": "sus",
-		"youtube": "Смотрите Youtube с друзьями через Discord Together",
-		"chess": "Играйте в Chess с друзьями через Discord Together",
-		"fish": "Играйте в Fishington.io с друзьями через Discord Together",
-		"poker": "Играйте в Poker Night с друзьями через Discord Together",
-		"lettertile": "Играйте в Letter Tile с друзьями через Discord Together",
-		"wordsnack": "Играйте в Words Snack с друзьями через Discord Together",
-		"doodlecrew": "Играйте в Doodle Crew с друзьями через Discord Together",
-		"spellcast": "Играйте в SpellCast с друзьями через Discord Together",
-		"awkword": "Играйте в Awkword с друзьями через Discord Together"
+	"affect": {
+		"description": "Нет, это не навредит моему ребёнку"
+	},
+	"birthdays": {
+		"allBirthdays": "Список всех дней рождения на текущем сервере",
+		"birthdayChanged": "Ваш день рождения изменён на {date}",
+		"birthdayCreate": "Вы не устанавливали свой день рождения! Установить свой день рождения используя {prefix}birthday ДД ММ ГГГГ",
+		"birthdayCreated": "Ваш день рождения установлен на {date}",
+		"birthdayDesc": "Добавить/изменить день рождения",
+		"birthdaysDesc": "Список всех дней рождений на сервере",
+		"delbirthdayDesc": "Удалить день рождения",
+		"mybirthdayDesc": "Показывает Ваш день рождения",
+		"nextBirthday": "Ближайший день рождения",
+		"nextbirthdayDesc": "Показывает ближайший день рождения на текущем сервере",
+		"noBirthdays": "Никто не указал свой день рождения на текущем сервере",
+		"noyourBirthday": "Вы не устанавливали свой день рождения",
+		"wrongFormat": "Укажите дату в формате ДД ММ ГГГГ",
+		"yourBirthday": "Ваш день рождения"
 	},
 	"botinfo": {
 		"description": "Информация о боте"
-	},
-	"affect": {
-		"description": "Нет, это не навредит моему ребёнку"
 	},
 	"changemymind": {
 		"description": "Переубеди меня"
@@ -25,69 +27,106 @@
 	"circle": {
 		"description": "Создаёт круглое изображение"
 	},
-	"clyde": {
-		"description": "Клайд"
-	},
-	"delete": {
-		"description": "Удалить"
-	},
-	"hitler": {
-		"description": "Хуже, чем Гитлер"
-	},
-	"triggered": {
-		"description": "TRIGGERED"
-	},
-	"wooosh": {
-		"description": "wooosh"
-	},
-	"leveling": {
-		"deluser": "Обнуляет уровень и опыт пользователя (только админы сервера)",
-		"deleted": "Уровень и опыт <@{name}> обнулены",
-		"leaderboard": "Показывает таблицу лидеров по уровню данного сервера",
-		"rank": "Показывает Ваш уровень",
-		"setlevel": "Выставляет уровень пользователя (только админы сервера)",
-		"newlevel": "Уровень <@{name}> изменён на {value}",
-		"setxp": "Выставляет опыт пользователя (только админы сервера)",
-		"newxp": "Опыт <@{name}> изменён на {value}",
-		"noXP": "**У пользователя нет опыта**",
-		"disabled": ":information_source: **Система уровней отключена**",
-		"noBoard": ":information_source: **Таблица лидеров пуста. Это твой шанс!**"
-	},
-	"birthdays": {
-		"birthdayDesc": "Добавить/изменить день рождения",
-		"delbirthdayDesc": "Удалить день рождения",
-		"birthdaysDesc": "Список всех дней рождений на сервере",
-		"nextbirthdayDesc": "Показывает ближайший день рождения на текущем сервере",
-		"mybirthdayDesc": "Показывает Ваш день рождения",
-		"nextBirthday": "Ближайший день рождения",
-		"yourBirthday": "Ваш день рождения",
-		"noyourBirthday": "Вы не устанавливали свой день рождения",
-		"birthdayCreate": "Вы не устанавливали свой день рождения! Установить свой день рождения используя {prefix}birthday ДД ММ ГГГГ",
-		"allBirthdays": "Список всех дней рождения на текущем сервере",
-		"wrongFormat": "Укажите дату в формате ДД ММ ГГГГ",
-		"noBirthdays": "Никто не указал свой день рождения на текущем сервере",
-		"birthdayChanged": "Ваш день рождения изменён на {date}",
-		"birthdayCreated": "Ваш день рождения установлен на {date}"
+	"clear": {
+		"description": "Очистить очередь"
 	},
 	"clip": {
 		"description": "Воспроизводит звук",
-		"usageReply": "Использование: clip <название>",
 		"errorQueue": "Не могу воспроизвести звук, так как есть активная очередь",
-		"noFile": "Файл с таким названием не существует"
+		"noFile": "Файл с таким названием не существует",
+		"usageReply": "Использование: clip <название>"
 	},
 	"clips": {
 		"description": "Список всех звуков",
 		"usageReply": "Использование: clips"
 	},
+	"clyde": {
+		"description": "Клайд"
+	},
+	"common": {
+		"cooldownMessage": "Подождите {time} сек перед повторным использованием команды `{name}`",
+		"dmOnly": "Данную команду можно использовать только через личные сообщения бота!",
+		"error": "Произошла ошибка: {error}",
+		"errorNotChannel": "Необходимо находиться в голосовом канале!",
+		"errorNotQueue": "Очередь пуста",
+		"executedBy": "Команду выполнил {name}",
+		"guildOnly": "Данную команду можно использовать только на сервере!",
+		"no": "Нет",
+		"noCommandExists": "Данная команда не существует",
+		"noMention": "Вы не указали пользователя!",
+		"noMessage": "Сообщение не указано!",
+		"noPermissions": "У вас недостаточно прав!",
+		"off": "отключил",
+		"on": "включил",
+		"ownerOnly": "Данную команду может использовать только владелец бота!",
+		"yes": "Да"
+	},
+	"delete": {
+		"description": "Удалить"
+	},
+	"discordtogether": {
+		"awkword": "Играйте в Awkword с друзьями через Discord Together",
+		"betrayal": "sus",
+		"chess": "Играйте в Chess с друзьями через Discord Together",
+		"clickHere": "Нажмите сюда чтобы начать",
+		"disabled": ":information_source: **Discord Activities отключены**",
+		"doodlecrew": "Играйте в Doodle Crew с друзьями через Discord Together",
+		"fish": "Играйте в Fishington.io с друзьями через Discord Together",
+		"lettertile": "Играйте в Letter Tile с друзьями через Discord Together",
+		"poker": "Играйте в Poker Night с друзьями через Discord Together",
+		"spellcast": "Играйте в SpellCast с друзьями через Discord Together",
+		"wordsnack": "Играйте в Words Snack с друзьями через Discord Together",
+		"youtube": "Смотрите Youtube с друзьями через Discord Together"
+	},
+	"eval": {
+		"description": "Выполнить код",
+		"noCode": "Вы не указали код для выполнения!"
+	},
 	"help": {
-		"description": "Список всех команд и их описания",
-		"usage": "Использование",
+		"aliases": "Алиасы",
 		"cmdDesc": "Описание",
 		"cooldown": "Откат",
-		"aliases": "Алиасы"
+		"description": "Список всех команд и их описания",
+		"usage": "Использование"
+	},
+	"hentai": {
+		"awailableCategories": "Доступные категории",
+		"categories": "(Вы так же можете использовать команду без аргумента)\n```neko\ncum\nsolo\nanal\nyuri\nblowjob - bj\npussy\nclassic\nfutanari - futa\n```",
+		"description": "woman is a joke, sex is a myth",
+		"here": "Вот что ты просил, {name}",
+		"noCategory": "Если Вы хотите увидеть что-либо из определённой категории, введите её название после команды.\nИспользуйте **`{prefix}hentai help`** чтобы увидеть все категории\n",
+		"nsfwOnly": "Канал не является NSFW каналом!"
+	},
+	"hitler": {
+		"description": "Хуже, чем Гитлер"
+	},
+	"hug": {
+		"default": "Иди сюда :3",
+		"description": "Обнять кого-либо",
+		"hug": "обнял",
+		"yourself": "Вы не можете обнять самого себя"
 	},
 	"invite": {
 		"description": "Отправить ссылку на приглашение бота"
+	},
+	"kiss": {
+		"default": "<3",
+		"description": "Поцеловать кого-либо",
+		"kiss": "поцеловал",
+		"yourself": "Вы не можете поцеловать самого себя"
+	},
+	"leveling": {
+		"deleted": "Уровень и опыт <@{name}> обнулены",
+		"deluser": "Обнуляет уровень и опыт пользователя (только админы сервера)",
+		"disabled": ":information_source: **Система уровней отключена**",
+		"leaderboard": "Показывает таблицу лидеров по уровню данного сервера",
+		"newlevel": "Уровень <@{name}> изменён на {value}",
+		"newxp": "Опыт <@{name}> изменён на {value}",
+		"noBoard": ":information_source: **Таблица лидеров пуста. Это твой шанс!**",
+		"noXP": "**У пользователя нет опыта**",
+		"rank": "Показывает Ваш уровень",
+		"setlevel": "Выставляет уровень пользователя (только админы сервера)",
+		"setxp": "Выставляет опыт пользователя (только админы сервера)"
 	},
 	"loop": {
 		"description": "Переключение повтора очереди",
@@ -96,26 +135,45 @@
 	},
 	"lyrics": {
 		"description": "Найти слова играющей в данный момент песни",
-		"lyricsNotFound": "Слова для {title} не найдены",
-		"embedTitle": "Слова {title}"
+		"embedTitle": "Слова {title}",
+		"lyricsNotFound": "Слова для {title} не найдены"
+	},
+	"minecraft": {
+		"awailableCategories": "Доступные агрументы",
+		"categories": "```\nuser [username]\nserver [ip]```",
+		"description": "Возвращает информацию об Minecraft аккаунте/сервере",
+		"error": "Произошла ошибка. Скорее всего данный Вами ник/сервер не существует (Ошибка {error})",
+		"noArg": "Использование: $minecraft/mine [server/user] [username/ip]"
 	},
 	"move": {
 		"description": "Поменять позицию трека в очереди",
-		"usageReply": "Использование: {prefix}move <номер в очереди>",
-		"result": "<@{author}> переместил **{title}** на {index} место в очереди"
+		"result": "<@{author}> переместил **{title}** на {index} место в очереди",
+		"usageReply": "Использование: {prefix}move <номер в очереди>"
 	},
 	"nowplaying": {
 		"description": "Показать играющий трек",
 		"embedTitle": "Сейчас играет",
-		"trackTitle": "Название трека",
-		"trackChannel": "Название канала",
-		"trackViews": "Просмотры",
-		"trackDuration": "Продолжительность",
-		"repeatMode": "Повтор",
-		"requestedBy": "Добавил в очередь",
 		"fromPlaylist": "Из плейлиста",
 		"live": " ◉ LIVE",
-		"timeRemaining": "Оставшееся время: {time}"
+		"repeatMode": "Повтор",
+		"requestedBy": "Добавил в очередь",
+		"timeRemaining": "Оставшееся время: {time}",
+		"trackChannel": "Название канала",
+		"trackDuration": "Продолжительность",
+		"trackTitle": "Название трека",
+		"trackViews": "Просмотры"
+	},
+	"osu": {
+		"description": "Возвращает информацию об аккаунте osu",
+		"error": "Произошла ошибка. Скорее всего данный Вами пользователь не существует",
+		"noArg": "Пользователь не указан",
+		"noUser": "Пользователь не найден"
+	},
+	"pat": {
+		"default": ":3",
+		"description": "Погладить кого-либо",
+		"pat": "погладил",
+		"yourself": "Вы не можете погладить самого себя"
 	},
 	"pause": {
 		"description": "Поставить на паузу текущий трек"
@@ -125,60 +183,65 @@
 		"result": "Средний пинг API: {ping} мс"
 	},
 	"play": {
-		"disabled": "Система музыки отключена",
+		"cantJoinChannel": "Не могу подключиться к каналу: {error}",
 		"description": "Воспроизвести трек с YouTube, Spotify или Soundcloud",
+		"disabled": "Система музыки отключена",
 		"errorNotInSameChannel": "Вы должны быть в одном голосовом канале с <@{user}>",
-		"usageReply": "Использование: {prefix}play <YouTube URL | Video Name | | Spotify URL | Soundcloud URL>",
+		"everyoneLeft": "Все вышли из голосового канала, останавливаю музыку",
+		"leaveChannel": "Отключился от голосового канала, останавливаю музыку",
+		"loopQueue": "<@{author}> {loop} повтор очереди",
+		"loopSong": "<@{author}> {loop} повтор одного трека",
 		"missingPermissionConnect": "Не могу подключиться к голосовому каналу, недостаточно прав",
 		"missingPermissionSpeak": "Я не могу говорить в этом канале, недостаточно прав!",
-		"cantJoinChannel": "Не могу подключиться к каналу: {error}",
-		"queueAdded": "<@{author}> добавил в очередь **{title}**",
-		"queueEnded": "Очередь окончена",
-		"queueClear": "<@{author}> очистил очередь",
-		"everyoneLeft": "Все вышли из голосового канала, останавливаю музыку",
-		"noLive": "Воспроизведение прямых трансляций отключено",
-		"unavailable": "Видео недоступно",
-		"leaveChannel": "Отключился от голосового канала, останавливаю музыку",
-		"startedPlaying": "Началось воспроизведение: **{title}** <{url}>",
-		"skipSong": "<@{author}> пропустил текущий трек",
-		"pauseSong": "<@{author}> поставил текущий трек на паузу",
-		"stopSong": "<@{author}> остановил воспроизведение очереди",
-		"resumeSong": "<@{author}> продолжил воспроизведение текущего трека!",
-		"unmutedSong": "<@{author}> включил звук у трека!",
 		"mutedSong": "<@{author}> отключил звук у трека!",
-		"loopSong": "<@{author}> {loop} повтор одного трека",
-		"loopQueue": "<@{author}> {loop} повтор очереди"
+		"noLive": "Воспроизведение прямых трансляций отключено",
+		"pauseSong": "<@{author}> поставил текущий трек на паузу",
+		"queueAdded": "<@{author}> добавил в очередь **{title}**",
+		"queueClear": "<@{author}> очистил очередь",
+		"queueEnded": "Очередь окончена",
+		"resumeSong": "<@{author}> продолжил воспроизведение текущего трека!",
+		"skipSong": "<@{author}> пропустил текущий трек",
+		"startedPlaying": "Началось воспроизведение: **{title}** <{url}>",
+		"stopSong": "<@{author}> остановил воспроизведение очереди",
+		"unavailable": "Видео недоступно",
+		"unmutedSong": "<@{author}> включил звук у трека!",
+		"usageReply": "Использование: {prefix}play <YouTube URL | Video Name | | Spotify URL | Soundcloud URL>"
+	},
+	"playlist": {
+		"cantJoinChannel": "Не могу подключиться к каналу: {error}",
+		"description": "Добавить плейлист с YouTube в очередь",
+		"errorNotFoundPlaylist": "Плейлист не найден :(",
+		"errorNotInSameChannel": "Вы должны быть в одном голосовом канале с <@{user}>",
+		"fetchingPlaylist": "Поиск плейлиста...",
+		"missingPermissionConnect": "Не могу подключиться к голосовому каналу, недостаточно прав",
+		"missingPermissionSpeak": "Я не могу говорить в этом канале, недостаточно прав!",
+		"playlistCharLimit": "\nОписание больше лимита символов...",
+		"startedPlaylist": "<@{author}> добавил в очередь {tracks} из плейлиста {title}",
+		"usageReply": "Использование: {prefix}playlist <YouTube Playlist URL | Playlist Name>"
+	},
+	"queue": {
+		"currentPage": "Текущая страница - ",
+		"description": "Показать играющий сейчас трек и очередь на воспроизведение",
+		"embedCurrentSong": "Текущий трек",
+		"embedTitle": "Очередь на воспроизведение\n",
+		"missingPermissionMessage": "Недостаточно прав для управления сообщениями или реакциями"
+	},
+	"reload": {
+		"description": "Перезагрузить команду",
+		"noCommand": "Вы не указали команду",
+		"reloaded": "Команда {command} перезагружена!"
+	},
+	"resume": {
+		"description": "Продолжить воспроизведение текущего трека",
+		"errorPlaying": "Очередь не на паузе",
+		"resultNotPlaying": "<@{author}> ▶ продолжил воспроизведение текущего трека!"
+	},
+	"say": {
+		"description": "Вывести сообщение от имени бота (только владелец бота)"
 	},
 	"seek": {
 		"description": "Пропускает данное кол-во секунд текущего трека",
 		"result": "<@{author}> пропустил {seconds} секунд"
-	},
-	"stop": {
-		"description": "Остановить воспроизведение трека и очистить очередь"
-	},
-	"playlist": {
-		"description": "Добавить плейлист с YouTube в очередь",
-		"usageReply": "Использование: {prefix}playlist <YouTube Playlist URL | Playlist Name>",
-		"errorNotInSameChannel": "Вы должны быть в одном голосовом канале с <@{user}>",
-		"missingPermissionConnect": "Не могу подключиться к голосовому каналу, недостаточно прав",
-		"missingPermissionSpeak": "Я не могу говорить в этом канале, недостаточно прав!",
-		"errorNotFoundPlaylist": "Плейлист не найден :(",
-		"fetchingPlaylist": "Поиск плейлиста...",
-		"playlistCharLimit": "\nОписание больше лимита символов...",
-		"startedPlaylist": "<@{author}> добавил в очередь {tracks} из плейлиста {title}",
-		"cantJoinChannel": "Не могу подключиться к каналу: {error}"
-	},
-	"queue": {
-		"description": "Показать играющий сейчас трек и очередь на воспроизведение",
-		"missingPermissionMessage": "Недостаточно прав для управления сообщениями или реакциями",
-		"currentPage": "Текущая страница - ",
-		"embedTitle": "Очередь на воспроизведение\n",
-		"embedCurrentSong": "Текущий трек"
-	},
-	"resume": {
-		"description": "Продолжить воспроизведение текущего трека",
-		"resultNotPlaying": "<@{author}> ▶ продолжил воспроизведение текущего трека!",
-		"errorPlaying": "Очередь не на паузе"
 	},
 	"serverinfo": {
 		"description": "Информация о текущем Discord сервере"
@@ -187,95 +250,32 @@
 		"description": "Перемешать очередь",
 		"result": "<@{author}> перемешал очередь"
 	},
-	"clear": {
-		"description": "Очистить очередь"
+	"skip": {
+		"description": "Пропустить текущий трек"
 	},
-	"reload": {
-		"description": "Перезагрузить команду",
-		"noCommand": "Вы не указали команду",
-		"reloaded": "Команда {command} перезагружена!"
+	"slap": {
+		"default": "Пошёл к чёрту!",
+		"description": "Ударить кого-либо",
+		"slap": "ударил",
+		"yourself": "Вы не можете ударить самого себя"
+	},
+	"stop": {
+		"description": "Остановить воспроизведение трека и очистить очередь"
+	},
+	"triggered": {
+		"description": "TRIGGERED"
 	},
 	"uptime": {
 		"description": "Проверить время работы бота",
 		"result": "Бот работает уже: `{days} день(дня/дней), {hours} ч, {minutes} м, {seconds} сек`"
 	},
-	"eval": {
-		"description": "Выполнить код",
-		"noCode": "Вы не указали код для выполнения!"
-	},
-	"say": {
-		"description": "Вывести сообщение от имени бота (только владелец бота)"
-	},
-	"skip": {
-		"description": "Пропустить текущий трек"
-	},
-	"hug": {
-		"description": "Обнять кого-либо",
-		"hug": "обнял",
-		"yourself": "Вы не можете обнять самого себя",
-		"default": "Иди сюда :3"
-	},
-	"kiss": {
-		"description": "Поцеловать кого-либо",
-		"kiss": "поцеловал",
-		"yourself": "Вы не можете поцеловать самого себя",
-		"default": "<3"
-	},
-	"pat": {
-		"description": "Погладить кого-либо",
-		"pat": "погладил",
-		"yourself": "Вы не можете погладить самого себя",
-		"default": ":3"
-	},
-	"slap": {
-		"description": "Ударить кого-либо",
-		"slap": "ударил",
-		"yourself": "Вы не можете ударить самого себя",
-		"default": "Пошёл к чёрту!"
-	},
-	"hentai": {
-		"description": "woman is a joke, sex is a myth",
-		"here": "Вот что ты просил, {name}",
-		"nsfwOnly": "Канал не является NSFW каналом!",
-		"awailableCategories": "Доступные категории",
-		"categories": "(Вы так же можете использовать команду без аргумента)\n```neko\ncum\nsolo\nanal\nyuri\nblowjob - bj\npussy\nclassic\nfutanari - futa\n```",
-		"noCategory": "Если Вы хотите увидеть что-либо из определённой категории, введите её название после команды.\nИспользуйте **`{prefix}hentai help`** чтобы увидеть все категории\n"
-	},
 	"userinfo": {
 		"description": "Получить информацию о профиле пользователя"
 	},
-	"common": {
-		"on": "включил",
-		"off": "отключил",
-		"yes": "Да",
-		"no": "Нет",
-		"errorNotChannel": "Необходимо находиться в голосовом канале!",
-		"errorNotQueue": "Очередь пуста",
-		"cooldownMessage": "Подождите {time} сек перед повторным использованием команды `{name}`",
-		"error": "Произошла ошибка: {error}",
-		"executedBy": "Команду выполнил {name}",
-		"ownerOnly": "Данную команду может использовать только владелец бота!",
-		"guildOnly": "Данную команду можно использовать только на сервере!",
-		"noPermissions": "У вас недостаточно прав!",
-		"noMention": "Вы не указали пользователя!",
-		"noCommandExists": "Данная команда не существует",
-		"noMessage": "Сообщение не указано!",
-		"dmOnly": "Данную команду можно использовать только через личные сообщения бота!"
-	},
-	"osu": {
-		"description": "Возвращает информацию об аккаунте osu",
-		"noArg": "Пользователь не указан",
-		"noUser": "Пользователь не найден",
-		"error": "Произошла ошибка. Скорее всего данный Вами пользователь не существует"
-	},
-	"minecraft": {
-		"description": "Возвращает информацию об Minecraft аккаунте/сервере",
-		"awailableCategories": "Доступные агрументы",
-		"categories": "```\nuser [username]\nserver [ip]```",
-		"noArg": "Использование: $minecraft/mine [server/user] [username/ip]",
-		"error": "Произошла ошибка. Скорее всего данный Вами ник/сервер не существует (Ошибка {error})"
-	},
 	"whois": {
 		"description": "Возвращает информацию о данном IP"
+	},
+	"wooosh": {
+		"description": "wooosh"
 	}
 }

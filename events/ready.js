@@ -22,7 +22,7 @@ module.exports = async (client) => {
 		i = (i + 1) % statuses.length;
 
 		client.user.setPresence({ activity: { name: status[0], type: status[1] }, status: "online" });
-	}, 30000); // 1 * 30 * 1000 (m, s, ms)
+	}, 30 * 1000); // 1 * 30 * 1000 (m, s, ms)
 
 	cron.schedule("0 10 * * *", () => {
 		const date = new Date();
