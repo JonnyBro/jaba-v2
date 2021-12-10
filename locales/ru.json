@@ -239,6 +239,13 @@
 	"say": {
 		"description": "Вывести сообщение от имени бота (только владелец бота)"
 	},
+	"search": {
+		"description": "Поиск трека на YouTube",
+		"errorAlreadyCollector": "Поиск уже используется",
+		"resultEmbedDesc": "Результаты по запросу: {search}",
+		"resultEmbedTtile": "**Напишите номер трека, что хотите добавить в очередь**",
+		"usageReply": "Использование: {prefix}{name} <текст>"
+	},
 	"seek": {
 		"description": "Пропускает данное кол-во секунд текущего трека",
 		"result": "<@{author}> пропустил {seconds} секунд"
