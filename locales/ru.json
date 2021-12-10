@@ -242,10 +242,11 @@
 	"search": {
 		"description": "Поиск трека на YouTube",
 		"searchDesc": "Результаты по запросу: {search}",
-		"noSearch": "Введите число от 1 до 10",
 		"searchDesc2": "**Напишите номер трека, что хотите добавить в очередь**",
+		"noSearch": "Введите число от 1 до 10",
 		"errorAlreadyCollector": "Поиск уже используется",
-		"usageReply": "Использование: {prefix}{name} <текст>"
+		"usageReply": "Использование: {prefix}{name} <текст>",
+		"searchCancel": "Поиск отменён"
 	},
 	"seek": {
 		"description": "Пропускает данное кол-во секунд текущего трека",
