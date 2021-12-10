@@ -241,9 +241,9 @@
 	},
 	"search": {
 		"description": "Поиск трека на YouTube",
+		"searchDesc": "Результаты по запросу: {search}",
+		"searchDesc2": "**Напишите номер трека, что хотите добавить в очередь**",
 		"errorAlreadyCollector": "Поиск уже используется",
-		"resultEmbedDesc": "Результаты по запросу: {search}",
-		"resultEmbedTtile": "**Напишите номер трека, что хотите добавить в очередь**",
 		"usageReply": "Использование: {prefix}{name} <текст>"
 	},
 	"seek": {
