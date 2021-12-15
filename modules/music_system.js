@@ -13,8 +13,19 @@ const client = require("../index.js").client;
 const { MessageEmbed } = require("discord.js");
 const { Player } = require("discord-player");
 const i18n = require("../util/i18n");
+const { YOUTUBE_API_KEY } = require("../util/util");
 
-const player = new Player(client);
+const player = new Player(client, {
+	ytdlDownloadOptions: {
+		requestOptions: {
+			headers: {
+				cookie: YOUTUBE_API_KEY
+			}
+		}
+	},
+	leaveOnEmpty: false,
+	enableLive: true
+});
 client.player = player;
 
 // Music system messages
