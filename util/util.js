@@ -7,7 +7,7 @@ try {
 };
 
 exports.TOKEN = config ? config.TOKEN : process.env.TOKEN;
-exports.YOUTUBE_TOKEN = config ? config.YOUTUBE_TOKEN : process.env.YOUTUBE_TOKEN;
+exports.YOUTUBE_API_KEY = config ? config.YOUTUBE_API_KEY : process.env.YOUTUBE_API_KEY;
 exports.DBURL = config ? config.DBURL : process.env.DBURL;
 exports.BIRTHDAYCHANNEL = config ? config.BIRTHDAYCHANNEL : process.env.BIRTHDAYCHANNEL;
 exports.PREFIX = config ? config.PREFIX : process.env.PREFIX;
