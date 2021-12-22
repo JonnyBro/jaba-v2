@@ -46,9 +46,7 @@ module.exports = async (client) => {
 				const month = member.birthday.getUTCMonth() + 1;
 				const day = member.birthday.getUTCDate();
 				if (month === currentMonth && day === currentDay) {
-					birthdayChannel.send(`||@everyone|| Сегодня день рождения <@${member.discord_id}>!`, {
-						files: ["./birthday.png"]
-					});
+					birthdayChannel.send(`||@everyone|| Сегодня день рождения <@${member.discord_id}>!`);
 				};
 			});
 		});
